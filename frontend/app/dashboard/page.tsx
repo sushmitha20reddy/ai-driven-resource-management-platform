@@ -22,8 +22,7 @@ export default function DashboardPage() {
 
   const [search, setSearch] = useState("");
 
-  const API_URL =
-  "https://ai-platform-backend-5msg.onrender.com";
+  const API_URL = "https://ai-platform-backend-5msg.onrender.com";
 
   const fetchAnalytics = async () => {
     try {
@@ -183,7 +182,6 @@ export default function DashboardPage() {
             </div>
           </div>
         </div>
-
         {/* HEADER */}
         <div className="mb-10">
           <h1 className="text-5xl font-bold mb-3">Welcome Back 👋</h1>
@@ -195,95 +193,99 @@ export default function DashboardPage() {
         {/* STATS */}
         <div className="grid md:grid-cols-4 gap-6 mb-10">
           <div
-            className="bg-gradient-to-r
-                from-blue-600
-                to-blue-800
-                p-8
-                rounded-2xl
-                hover:scale-105
-                transition-all
-                shadow-lg
-                hover:shadow-blue-500/30"
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg">Total Quizzes</h3>
-
-              <BarChart3 size={28} />
-            </div>
-
-            <p className="text-4xl font-bold">
-              {analytics ? analytics.total_quizzes : 0}
-            </p>
-          </div>
-
-          <div
             className="
-            bg-gradient-to-r
-            from-green-600
-            to-green-800
-            p-8
-            rounded-2xl
-            hover:scale-105
-            transition-all
-            shadow-lg
-            hover:shadow-green-500/30
-            "
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg">Average Score</h3>
-
-              <TrendingUp size={28} />
-            </div>
-
-            <p className="text-4xl font-bold tracking-tight">
-              {analytics ? Number(analytics.average_percentage).toFixed(2) : 0}%
-            </p>
-          </div>
-
-          <div
-            className="
-  bg-gradient-to-r
-  from-purple-600
-  to-purple-800
-  p-8
-  rounded-2xl
-  hover:scale-105
-  transition-all
-  shadow-lg
-  hover:shadow-purple-500/30
-"
-          >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg">Best Score</h3>
-
-              <Trophy size={28} />
-            </div>
-
-            <p className="text-4xl font-bold tracking-tight">
-              {analytics ? Number(analytics.best_score).toFixed(2) : 0}%
-            </p>
-          </div>
-
-          <div
-            className="
-  bg-gradient-to-r
-  from-cyan-600
+  bg-gradient-to-br
+  from-blue-600
   to-blue-800
-  p-8
-  rounded-2xl
+  rounded-3xl
+  p-6
+  shadow-xl
   hover:scale-105
   transition-all
-  shadow-lg
-  hover:shadow-cyan-500/30
 "
           >
-            <div className="flex justify-between items-center mb-4">
-              <h3 className="text-lg">Subjects</h3>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold">Total Quizzes</h3>
 
-              <BookOpen size={28} />
+              <span className="text-4xl">📊</span>
             </div>
 
-            <p className="text-6xl font-bold tracking-tight">2</p>
+            <h2 className="text-5xl font-bold">{analytics.total_quizzes}</h2>
+
+            <p className="mt-4 text-green-300">🟢 Active Learning</p>
+          </div>
+
+          <div
+            className="
+  bg-gradient-to-br
+  from-green-600
+  to-green-800
+  rounded-3xl
+  p-6
+  shadow-xl
+  hover:scale-105
+  transition-all
+"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold">Average Score</h3>
+
+              <span className="text-4xl">📈</span>
+            </div>
+
+            <h2 className="text-5xl font-bold">
+              {analytics.average_percentage.toFixed(0)}%
+            </h2>
+
+            <p className="mt-4 text-green-200">🚀 Improving</p>
+          </div>
+
+          <div
+            className="
+  bg-gradient-to-br
+  from-purple-600
+  to-purple-900
+  rounded-3xl
+  p-6
+  shadow-xl
+  hover:scale-105
+  transition-all
+"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold">Best Score</h3>
+
+              <span className="text-4xl">🏆</span>
+            </div>
+
+            <h2 className="text-5xl font-bold">
+              {analytics.best_score.toFixed(0)}%
+            </h2>
+
+            <p className="mt-4 text-yellow-300">⭐ Excellent</p>
+          </div>
+
+          <div
+            className="
+  bg-gradient-to-br
+  from-cyan-600
+  to-blue-700
+  rounded-3xl
+  p-6
+  shadow-xl
+  hover:scale-105
+  transition-all
+"
+          >
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-semibold">Subjects</h3>
+
+              <span className="text-4xl">📚</span>
+            </div>
+
+            <h2 className="text-5xl font-bold">{analytics.subjects}</h2>
+
+            <p className="mt-4 text-cyan-200">Keep Exploring</p>
           </div>
         </div>
         {/* CHART + ACTIVITY */}
