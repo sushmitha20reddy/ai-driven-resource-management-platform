@@ -39,15 +39,11 @@ async def get_all_results(
 ):
     return db.query(Result).all()
 
-
-    
-
 @router.get("/analytics")
 async def analytics(
     db: Session = Depends(get_db)
 ):
-    
-    
+
     results = db.query(Result).all()
 
     total_quizzes = len(results)
@@ -56,7 +52,8 @@ async def analytics(
         return {
             "total_quizzes": 0,
             "average_percentage": 0,
-            "best_score": 0
+            "best_score": 0,
+            "subjects": 0
         }
 
     average_percentage = (
@@ -68,22 +65,17 @@ async def analytics(
         r.percentage for r in results
     )
 
+    subjects = len(
+        set(
+            r.subject.strip().lower()
+            for r in results
+            if r.subject
+        )
+    )
+
     return {
         "total_quizzes": total_quizzes,
         "average_percentage": average_percentage,
-        "best_score": best_score
+        "best_score": best_score,
+        "subjects": subjects
     }
-
-@router.get("/chart-data")
-async def chart_data(
-    db: Session = Depends(get_db)
-):
-    results = db.query(Result).all()
-
-    return [
-        {
-            "date": f"Quiz {i + 1}",
-            "average": result.percentage
-        }
-        for i, result in enumerate(results)
-    ]
