@@ -4,15 +4,26 @@ import { useState } from "react";
 import axios from "axios";
 import Sidebar from "../../components/Sidebar";
 
+import {
+  Code,
+  Database,
+  Brain,
+  Cpu,
+  Cloud,
+  Rocket,
+  Shield,
+  BookOpen
+} from "lucide-react";
+
 const phaseIcons = [
-  "🐍",
-  "📚",
-  "🗄️",
-  "🤖",
-  "🧠",
-  "🚀",
-  "⚙️",
-  "💼"
+  Code,
+  Database,
+  Brain,
+  Cpu,
+  Cloud,
+  Rocket,
+  Shield,
+  BookOpen
 ];
 
 export default function RoadmapPage() {
@@ -20,16 +31,7 @@ export default function RoadmapPage() {
   const [goal, setGoal] = useState("");
 
 
-const [roadmapData, setRoadmapData] = useState<any[]>([
-  "Learn Python Fundamentals",
-  "Master Data Structures & Algorithms",
-  "Learn SQL & Databases",
-  "Study Machine Learning",
-  "Deep Learning & Neural Networks",
-  "Build AI Projects",
-  "Learn MLOps & Deployment",
-  "Apply for AI Engineer Roles"
-]);
+const [roadmapData, setRoadmapData] = useState<any[]>([]);
 
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +70,10 @@ const [roadmapData, setRoadmapData] = useState<any[]>([
 };
 
 const totalDuration =
-  roadmapData.length * 2;
+  roadmapData.reduce((total, step) => {
+    const weeks = parseInt(step.duration) || 0;
+    return total + weeks;
+  }, 0);
 
 const difficulty =
   roadmapData.length >= 10
@@ -268,6 +273,38 @@ const difficulty =
 </div>
 
 
+{loading && (
+
+<div
+  className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    border border-slate-700/40
+    rounded-3xl
+    p-8
+    mb-10
+  "
+>
+
+  <h2 className="text-3xl font-bold mb-8">
+    🤖 Generating AI Roadmap...
+  </h2>
+
+  <div className="space-y-5">
+
+    <div className="h-6 bg-slate-700 rounded animate-pulse w-3/4"></div>
+
+    <div className="h-6 bg-slate-700 rounded animate-pulse w-2/3"></div>
+
+    <div className="h-6 bg-slate-700 rounded animate-pulse w-5/6"></div>
+
+    <div className="h-6 bg-slate-700 rounded animate-pulse w-1/2"></div>
+
+  </div>
+
+</div>
+
+)}
 
 
 {roadmapData.length > 0 && (
@@ -276,7 +313,7 @@ const difficulty =
   className="
     bg-slate-900/60
     backdrop-blur-xl
-    border border-slate-700/40
+    border border-cyan-500/20 shadow-[0_0_25px_rgba(34,211,238,0.08)]
     rounded-3xl
     p-8
     shadow-2xl
@@ -288,208 +325,92 @@ const difficulty =
     🚀 Learning Roadmap
   </h2>
 
-  <div className="space-y-6">
 
-    {roadmapData.map((step, index) => (
+    <div className="grid lg:grid-cols-3 xl:grid-cols-4 gap-6">
+
+  {roadmapData.map((step, index) => {
+
+    const Icon =
+      phaseIcons[index % phaseIcons.length];
+
+    return (
 
       <div
-  key={index}
-  className="
-    flex
-    items-start
-    gap-6
-    relative
-  "
->
+        key={index}
+        className="
+          bg-slate-900/60
+          backdrop-blur-xl
+          rounded-3xl
+          border
+          border-cyan-500/20
+          shadow-[0_0_25px_rgba(34,211,238,0.08)]
+          p-6
+          hover:scale-105
+          transition-all
+        "
+      >
 
-        {/* Number Circle */}
+        <div
+          className="
+            w-16
+            h-16
+            rounded-2xl
+            bg-slate-800/60
+            border
+            border-cyan-500/20
+            flex
+            items-center
+            justify-center
+            mb-4
+          "
+        >
+          <Icon
+            size={32}
+            className="text-cyan-400"
+          />
+        </div>
 
-        {index !== roadmapData.length - 1 && (
+        <div className="mb-3">
 
-  <div
-    className="
-      absolute
-      left-8
-      top-16
-      w-1
-      h-20
-      rounded-full
-      bg-gradient-to-b
-      from-cyan-500
-      via-blue-500
-      to-purple-500
-      opacity-80
-      shadow-[0_0_20px_rgba(59,130,246,0.8)]
-    "
-  />
+          <span
+            className="
+              text-cyan-400
+              text-sm
+              font-semibold
+            "
+          >
+            Phase {index + 1}
+          </span>
 
-)}
+        </div>
 
-<div className="relative">
+        <h3
+          className="
+            text-xl
+            font-bold
+            text-white
+          "
+        >
+          {step.title}
+        </h3>
 
-  <div
-    className="
-      absolute
-      inset-0
-      bg-cyan-500/40
-      blur-xl
-      rounded-full
-      animate-pulse
-    "
-  />
+        <p className="text-cyan-400 mt-2">
+          ⏱ {step.duration}
+        </p>
 
-  <div
-    className="
-      relative
-      w-16
-      h-16
-      rounded-full
-      bg-gradient-to-r
-      from-cyan-500
-      to-blue-600
-      flex
-      items-center
-      justify-center
-      text-xl
-      font-bold
-      shadow-2xl
-    "
-  >
-    {index + 1}
-  </div>
-
-</div>
-
-        {/* Card */}
-
-       <div
-  className={`
-    flex-1
-    rounded-2xl
-    p-6
-    transition-all
-    duration-300
-    hover:scale-[1.03]
-    hover:-translate-y-1
-    hover:shadow-[0_0_40px_rgba(59,130,246,0.25)]
-    hover:scale-[1.02]
-    ${
-      [
-        "bg-blue-500/10 border border-blue-500/30 hover:border-cyan-400",
-        "bg-green-500/10 border border-green-500/30 hover:border-cyan-400",
-        "bg-purple-500/10 border border-purple-500/30 hover:border-cyan-400",
-        "bg-pink-500/10 border border-pink-500/30 hover:border-cyan-400",
-        "bg-orange-500/10 border border-orange-500/30 hover:border-cyan-400",
-        "bg-cyan-500/10 border border-cyan-500/30 hover:border-cyan-400",
-        "bg-yellow-500/10 border border-yellow-500/30 hover:border-cyan-400",
-        "bg-red-500/10 border border-red-500/30 hover:border-cyan-400"
-      ][index % 8]
-    }
-  `}
->
-
-  <div className="flex items-center justify-between mb-4">
-
-  <span
-    className="
-      px-3
-      py-1
-      rounded-full
-      bg-cyan-500/20
-      text-cyan-300
-      text-sm
-      font-semibold
-    "
-  >
-    Phase {index + 1}
-  </span>
-
-  <div
-    className="
-      w-8
-      h-8
-      rounded-full
-      bg-green-500/20
-      flex
-      items-center
-      justify-center
-      text-green-400
-      font-bold
-    "
-  >
-    ✓
-  </div>
-
-</div>
-
-
-<div
-  className="
-    w-16
-    h-16
-    rounded-2xl
-    flex
-    items-center
-    justify-center
-    text-4xl
-    bg-slate-900/60
-    border
-    border-slate-700/40
-    mb-4
-    shadow-lg
-  "
->
-  {phaseIcons[index % phaseIcons.length]}
-</div>
-
-  <h3
-    className="
-      text-xl
-      font-bold
-      text-white
-    "
-  >
-    {step.title}
-  </h3>
-
-<p className="text-cyan-400 mt-2">
-  {step.duration}
-</p>
-
-<p className="text-slate-400 mt-3">
-  {step.description}
-</p>
-
-<div className="w-full bg-slate-800 h-2 rounded-full mt-3">
-
-  <div
-    className="
-      bg-gradient-to-r
-      from-cyan-500
-      to-blue-500
-      h-2
-      rounded-full
-    "
-  />
-
-</div>
-
-  <p className="text-slate-400 mt-3">
-  Recommended learning topic for this phase.
-</p>
-
-</div>
+        <p className="text-slate-400 mt-3">
+          {step.description}
+        </p>
 
       </div>
 
-    ))}
+    );
 
-  </div>
+  })}
 
 </div>
-
+</div>
 )}
-
       </section>
 
     </main>
