@@ -16,6 +16,12 @@ export default function ResumePage() {
 
   const [skillsFound, setSkillsFound] = useState<string[]>([]);
 
+  const [strengths, setStrengths] = useState<string[]>([]);
+
+  const [weaknesses, setWeaknesses] = useState<string[]>([]);
+
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+
   const [missingSkills, setMissingSkills] = useState<string[]>([]);
 
   const analyzeResume = async () => {
@@ -47,22 +53,29 @@ const response = await axios.post(
     },
   }
 );
-      setAnalysis(response.data.analysis);
+      setScore(response.data.score || 0);
 
-setScore(87);
+setSkillsFound(
+  response.data.skills_found || []
+);
 
-setSkillsFound([
-  "Python",
-  "Java",
-  "React",
-  "SQL",
-]);
+setMissingSkills(
+  response.data.missing_skills || []
+);
 
-setMissingSkills([
-  "Docker",
-  "AWS",
-  "Kubernetes",
-]);
+setStrengths(
+  response.data.strengths || []
+);
+
+setWeaknesses(
+  response.data.weaknesses || []
+);
+
+setSuggestions(
+  response.data.suggestions || []
+);
+
+setAnalysis("completed");
 
     } catch (error) {
 
@@ -253,45 +266,74 @@ shadow-2xl
 
 )}
 
-      {analysis && (
+<div className="grid md:grid-cols-3 gap-6 mt-6">
 
-        <div className="
-bg-slate-900/60
-backdrop-blur-xl
-border
-border-slate-700/40
-rounded-3xl
-p-8
-shadow-2xl
-">
+  {/* Strengths */}
+  <div className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    rounded-3xl
+    p-6
+    border border-slate-700/40
+  ">
+    <h3 className="text-xl font-bold mb-4">
+      💪 Strengths
+    </h3>
 
-          <h2 className="text-3xl font-bold mb-6">
-            Analysis Result
-          </h2>
+    <ul className="space-y-2">
+      {strengths.map((item, index) => (
+        <li key={index} className="text-green-300">
+          ✅ {item}
+        </li>
+      ))}
+    </ul>
+  </div>
 
-          <div className="
-            bg-gray-900
-            p-6
-            rounded-xl
-            border
-            border-gray-700
-          ">
+  {/* Weaknesses */}
+  <div className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    rounded-3xl
+    p-6
+    border border-slate-700/40
+  ">
+    <h3 className="text-xl font-bold mb-4">
+      ⚠️ Weaknesses
+    </h3>
 
-<pre
-  className="
-    whitespace-pre-wrap
-    text-slate-300
-    leading-8
-    text-base
-  "
->              {analysis}
-            </pre>
+    <ul className="space-y-2">
+      {weaknesses.map((item, index) => (
+        <li key={index} className="text-red-300">
+          ❌ {item}
+        </li>
+      ))}
+    </ul>
+  </div>
 
-          </div>
+  {/* Suggestions */}
+  <div className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    rounded-3xl
+    p-6
+    border border-slate-700/40
+  ">
+    <h3 className="text-xl font-bold mb-4">
+      🚀 Suggestions
+    </h3>
 
-        </div>
+    <ul className="space-y-2">
+      {suggestions.map((item, index) => (
+        <li key={index} className="text-cyan-300">
+          💡 {item}
+        </li>
+      ))}
+    </ul>
+  </div>
 
-      )}
+</div>
+
+      
 
     </section>
 
