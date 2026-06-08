@@ -20,7 +20,7 @@ export default function RoadmapPage() {
   const [goal, setGoal] = useState("");
 
 
-  const [roadmapData, setRoadmapData] = useState([
+const [roadmapData, setRoadmapData] = useState<any[]>([
   "Learn Python Fundamentals",
   "Master Data Structures & Algorithms",
   "Learn SQL & Databases",
@@ -43,11 +43,11 @@ export default function RoadmapPage() {
       "https://ai-platform-backend-5msg.onrender.com";
 
     const response = await axios.post(
-      `${API_URL}/roadmap`,
-      {
-        goal: goal
-      }
-    );
+  `${API_URL}/generate-roadmap`,
+  {
+    goal: goal
+  }
+);
 
     setRoadmapData(
       response.data.roadmap
@@ -475,11 +475,15 @@ export default function RoadmapPage() {
       text-white
     "
   >
-    {step}
+    {step.title}
   </h3>
 
-<p className="text-slate-400 mt-2">
-  Progress: {(index + 1) * 12}%
+<p className="text-cyan-400 mt-2">
+  {step.duration}
+</p>
+
+<p className="text-slate-400 mt-3">
+  {step.description}
 </p>
 
 <div className="w-full bg-slate-800 h-2 rounded-full mt-3">
@@ -492,16 +496,13 @@ export default function RoadmapPage() {
       h-2
       rounded-full
     "
-    style={{
-      width: `${(index + 1) * 12}%`
-    }}
   />
 
 </div>
 
   <p className="text-slate-400 mt-3">
-    Complete this step before moving to the next phase.
-  </p>
+  Recommended learning topic for this phase.
+</p>
 
 </div>
 
