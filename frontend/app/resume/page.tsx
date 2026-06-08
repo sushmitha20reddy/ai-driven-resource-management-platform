@@ -64,57 +64,98 @@ const response = await axios.post(
 
     <section className="flex-1 p-10">
 
-      <h1 className="text-5xl font-bold mb-10">
-        AI Resume Analyzer 🚀
-      </h1>
+      <div className="mb-12">
+  <h1
+    className="
+      text-6xl
+      font-extrabold
+      bg-gradient-to-r
+      from-blue-400
+      via-cyan-400
+      to-purple-500
+      bg-clip-text
+      text-transparent
+      mb-3
+    "
+  >
+    AI Resume Analyzer
+  </h1>
 
-      <div className="bg-[#0f172a] p-8 rounded-2xl border border-gray-800">
+  <p className="text-slate-400 text-lg">
+    Upload your resume and receive AI-powered career insights
+  </p>
+</div>
 
-        <div className="flex flex-col md:flex-row gap-6 items-center">
+      <div className="
+bg-slate-900/60
+backdrop-blur-xl
+border
+border-slate-700/40
+rounded-3xl
+p-8
+shadow-2xl
+">
 
-          <input
-            type="file"
-            accept=".pdf"
-            onChange={(e) => {
-              if (e.target.files) {
-                setFile(e.target.files[0]);
-              }
-            }}
-            className="
-              text-white
-              file:bg-blue-600
-              file:text-white
-              file:border-0
-              file:px-6
-              file:py-3
-              file:rounded-xl
-              file:mr-4
-              cursor-pointer
-            "
-          />
+        <div
+  className="
+  border-2
+  border-dashed
+  border-blue-500/30
+  rounded-3xl
+  p-12
+  text-center
+  bg-slate-900/30
+"
+>
+  <input
+    type="file"
+    accept=".pdf"
+    onChange={(e) => {
+      if (e.target.files) {
+        setFile(e.target.files[0]);
+      }
+    }}
+    className="mb-6"
+  />
 
-          <button
-            onClick={analyzeResume}
-            className="
-              bg-blue-600
-              hover:bg-blue-700
-              px-8
-              py-4
-              rounded-xl
-              font-semibold
-              transition
-            "
-          >
-            {loading ? "Analyzing..." : "Analyze Resume"}
-          </button>
+  <h3 className="text-2xl font-bold mb-3">
+    Upload Resume
+  </h3>
 
-        </div>
+  <p className="text-slate-400 mb-6">
+    PDF files only
+  </p>
 
-      </div>
+  <button
+    onClick={analyzeResume}
+    className="
+      bg-gradient-to-r
+      from-blue-600
+      to-purple-600
+      px-10
+      py-4
+      rounded-2xl
+      font-semibold
+      hover:scale-105
+      transition-all
+    "
+  >
+    {loading ? "Analyzing..." : "Analyze Resume"}
+  </button>
+</div>
+</div>
 
       {analysis && (
 
-        <div className="mt-10 bg-[#0f172a] p-8 rounded-2xl border border-gray-800">
+        <div className="
+bg-slate-900/60
+backdrop-blur-xl
+border
+border-slate-700/40
+rounded-3xl
+p-8
+shadow-2xl
+">
 
           <h2 className="text-3xl font-bold mb-6">
             Analysis Result
@@ -128,8 +169,14 @@ const response = await axios.post(
             border-gray-700
           ">
 
-            <pre className="whitespace-pre-wrap text-gray-300 leading-7">
-              {analysis}
+<pre
+  className="
+    whitespace-pre-wrap
+    text-slate-300
+    leading-8
+    text-base
+  "
+>              {analysis}
             </pre>
 
           </div>
