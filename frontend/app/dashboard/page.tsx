@@ -12,9 +12,13 @@ import PerformanceChart from "../../components/PerformanceChart";
 export default function DashboardPage() {
   const router = useRouter();
 
-  const [authenticated, setAuthenticated] = useState(false);
 
-  const [analytics, setAnalytics] = useState<any>(null);
+const [analytics, setAnalytics] = useState({
+  total_quizzes: 0,
+  average_percentage: 0,
+  best_score: 0,
+  subjects: 0,
+});
 
   const [activities, setActivities] = useState<any[]>([]);
 
@@ -60,26 +64,13 @@ export default function DashboardPage() {
       router.push("/profile");
     }
   };
-  useEffect(() => {
-    const token = localStorage.getItem("token");
 
-    if (!token) {
-      router.push("/login");
-    } else {
-      setAuthenticated(true);
+useEffect(() => {
+  fetchAnalytics();
+  fetchActivities();
+}, []);
 
-      fetchAnalytics();
-      fetchActivities();
-    }
-  }, []);
-
-  if (!authenticated) {
-    return (
-      <main className="min-h-screen bg-black text-white flex items-center justify-center">
-        <h1 className="text-2xl">Checking authentication...</h1>
-      </main>
-    );
-  }
+  
 
   return (
     <main className="min-h-screen bg-black text-white flex">
@@ -210,7 +201,7 @@ export default function DashboardPage() {
               <span className="text-4xl">📊</span>
             </div>
 
-            <h2 className="text-5xl font-bold">{analytics.total_quizzes}</h2>
+            <h2 className="text-4xl font-bold">{analytics.total_quizzes}</h2>
 
             <p className="mt-4 text-green-300">🟢 Active Learning</p>
           </div>
@@ -233,8 +224,8 @@ export default function DashboardPage() {
               <span className="text-4xl">📈</span>
             </div>
 
-            <h2 className="text-5xl font-bold">
-              {analytics.average_percentage.toFixed(0)}%
+            <h2 className="text-4xl font-bold">
+              {analytics.average_percentage.toFixed(0)}%          
             </h2>
 
             <p className="mt-4 text-green-200">🚀 Improving</p>
@@ -258,8 +249,8 @@ export default function DashboardPage() {
               <span className="text-4xl">🏆</span>
             </div>
 
-            <h2 className="text-5xl font-bold">
-              {analytics.best_score.toFixed(0)}%
+            <h2 className="text-4xl font-bold">
+              {Number(analytics.best_score).toFixed(0)}%
             </h2>
 
             <p className="mt-4 text-yellow-300">⭐ Excellent</p>
@@ -283,7 +274,9 @@ export default function DashboardPage() {
               <span className="text-4xl">📚</span>
             </div>
 
-            <h2 className="text-5xl font-bold">{analytics.subjects}</h2>
+            <h2 className="text-4xl font-bold">
+  {analytics.subjects || 0}
+</h2>
 
             <p className="mt-4 text-cyan-200">Keep Exploring</p>
           </div>
