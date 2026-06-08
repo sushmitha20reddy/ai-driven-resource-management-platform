@@ -3,6 +3,7 @@ from pypdf import PdfReader
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -32,13 +33,24 @@ async def analyze_resume(
                 extracted_text += text
 
         prompt = f"""
-Analyze this resume and return:
+Analyze the following resume.
 
-1. ATS Score out of 100
-2. Skills Found
-3. Strengths
-4. Weaknesses
-5. Suggestions for Improvement
+Return ONLY valid JSON in this format:
+
+{{
+  "score": 85,
+  "skills_found": ["Python", "React", "SQL"],
+  "missing_skills": ["Docker", "AWS"],
+  "strengths": [
+    "Strong technical skills"
+  ],
+  "weaknesses": [
+    "Missing cloud experience"
+  ],
+  "suggestions": [
+    "Add more projects"
+  ]
+}}
 
 Resume:
 
@@ -61,9 +73,23 @@ Resume:
 
         result = response.choices[0].message.content
 
-        return {
-            "analysis": result
-        }
+        try:
+
+            parsed = json.loads(result)
+
+            return parsed
+
+        except Exception:
+
+            return {
+                "score": 0,
+                "skills_found": [],
+                "missing_skills": [],
+                "strengths": [],
+                "weaknesses": [],
+                "suggestions": [],
+                "analysis": result
+            }
 
     except Exception as e:
 
