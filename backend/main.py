@@ -24,6 +24,7 @@ from routes.chat import router as chat_router
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
+from routes import result
 
 app = FastAPI()
 Base.metadata.create_all(bind=engine)
@@ -36,6 +37,7 @@ app.include_router(admin_router)
 app.include_router(activity_router)
 app.include_router(chart_router)
 app.include_router(profile_router)
+app.include_router(result.router)
 app.include_router(chat_router)
 app.include_router(
     roadmap_router

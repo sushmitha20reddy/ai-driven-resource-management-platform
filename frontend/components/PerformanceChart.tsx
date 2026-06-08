@@ -21,12 +21,15 @@ export default function PerformanceChart() {
 
     const API_URL =
   "https://ai-platform-backend-5msg.onrender.com";
-  axios.get(`${API_URL}/chart-data`)
-      .then((res) => {
 
-        setData(res.data);
-
-      });
+axios.get(`${API_URL}/last-7-days`)
+  .then((res) => {
+    console.log("Chart Data:", res.data);
+    setData(res.data);
+  })
+  .catch((err) => {
+    console.log("Chart Error:", err);
+  });
 
   }, []);
 
