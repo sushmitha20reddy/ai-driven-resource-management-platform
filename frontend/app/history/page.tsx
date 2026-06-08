@@ -57,20 +57,23 @@ const email =
   <div className="bg-slate-900 p-6 rounded-2xl">
     <h3 className="text-gray-400">Best Score</h3>
     <p className="text-3xl font-bold text-green-400">
-      Math.max(
-  ...results.map((r) => r.percentage),
-  0
-).toFixed(0) + "%"
-    </p>
+  {Math.max(
+    ...results.map((r) => r.percentage),
+    0
+  ).toFixed(0)}
+  %
+</p>
   </div>
 
   <div className="bg-slate-900 p-6 rounded-2xl">
     <h3 className="text-gray-400">Subjects</h3>
     <p className="text-3xl font-bold text-blue-400">
-      new Set(
-  results.map((r) => r.subject)
-).size
-    </p>
+  {
+    new Set(
+      results.map((r) => r.subject)
+    ).size
+  }
+</p>
   </div>
 
   <div
@@ -255,9 +258,7 @@ const email =
   </table>
 
 </div>
-
+</section>
     </main>
   );
 }
-</section>
-</main>
