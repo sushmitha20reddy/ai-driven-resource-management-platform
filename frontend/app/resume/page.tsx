@@ -12,6 +12,12 @@ export default function ResumePage() {
 
   const [loading, setLoading] = useState(false);
 
+  const [score, setScore] = useState(0);
+
+  const [skillsFound, setSkillsFound] = useState<string[]>([]);
+
+  const [missingSkills, setMissingSkills] = useState<string[]>([]);
+
   const analyzeResume = async () => {
 
     if (!file) {
@@ -41,9 +47,22 @@ const response = await axios.post(
     },
   }
 );
-      setAnalysis(
-        response.data.analysis
-      );
+      setAnalysis(response.data.analysis);
+
+setScore(87);
+
+setSkillsFound([
+  "Python",
+  "Java",
+  "React",
+  "SQL",
+]);
+
+setMissingSkills([
+  "Docker",
+  "AWS",
+  "Kubernetes",
+]);
 
     } catch (error) {
 
@@ -144,6 +163,95 @@ shadow-2xl
   </button>
 </div>
 </div>
+
+{analysis && (
+
+<div className="grid md:grid-cols-3 gap-6 mt-10">
+
+  <div className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    rounded-3xl
+    p-6
+    border border-slate-700/40
+  ">
+    <h3 className="text-xl font-bold mb-3">
+      ATS Score
+    </h3>
+
+    <div className="text-5xl font-bold text-green-400">
+      {score}
+    </div>
+
+    <div className="w-full bg-slate-800 h-3 rounded-full mt-4">
+      <div
+        className="bg-green-500 h-3 rounded-full"
+        style={{ width: `${score}%` }}
+      />
+    </div>
+  </div>
+
+  <div className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    rounded-3xl
+    p-6
+    border border-slate-700/40
+  ">
+    <h3 className="text-xl font-bold mb-4">
+      Skills Found
+    </h3>
+
+    <div className="flex flex-wrap gap-2">
+      {skillsFound.map((skill) => (
+        <span
+          key={skill}
+          className="
+            bg-green-600/20
+            text-green-300
+            px-3
+            py-1
+            rounded-full
+          "
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+  </div>
+
+  <div className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    rounded-3xl
+    p-6
+    border border-slate-700/40
+  ">
+    <h3 className="text-xl font-bold mb-4">
+      Missing Skills
+    </h3>
+
+    <div className="flex flex-wrap gap-2">
+      {missingSkills.map((skill) => (
+        <span
+          key={skill}
+          className="
+            bg-red-600/20
+            text-red-300
+            px-3
+            py-1
+            rounded-full
+          "
+        >
+          {skill}
+        </span>
+      ))}
+    </div>
+  </div>
+
+</div>
+
+)}
 
       {analysis && (
 
