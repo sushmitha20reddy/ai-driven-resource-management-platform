@@ -35,7 +35,13 @@ async def analyze_resume(
         prompt = f"""
 Analyze the following resume.
 
-Return ONLY valid JSON in this format:
+Return ONLY raw JSON.
+
+Do NOT use markdown.
+Do NOT use triple backticks.
+Do NOT write json before the response.
+
+Return ONLY a valid JSON object.
 
 {{
   "score": 85,
@@ -75,7 +81,11 @@ Resume:
 
         try:
 
-            parsed = json.loads(result)
+            cleaned = result.replace("```json", "")
+            cleaned = cleaned.replace("```", "")
+            cleaned = cleaned.strip()
+
+            parsed = json.loads(cleaned)
 
             return parsed
 
