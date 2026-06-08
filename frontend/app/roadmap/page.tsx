@@ -67,6 +67,16 @@ const [roadmapData, setRoadmapData] = useState<any[]>([
 
 };
 
+const totalDuration =
+  roadmapData.length * 2;
+
+const difficulty =
+  roadmapData.length >= 10
+    ? "Advanced"
+    : roadmapData.length >= 7
+    ? "Medium"
+    : "Beginner";
+
   return (
 
     <main className="min-h-screen  text-white flex">
@@ -162,9 +172,9 @@ const [roadmapData, setRoadmapData] = useState<any[]>([
       Your Goal
     </h3>
 
-    <p className="text-3xl font-bold mt-2">
-      AI Engineer
-    </p>
+    <p className="text-2xl font-bold mt-2">
+  {goal || "Not Generated"}
+</p>
 
     <p className="text-slate-500 mt-2">
       Target Role
@@ -191,8 +201,8 @@ const [roadmapData, setRoadmapData] = useState<any[]>([
     </h3>
 
     <p className="text-5xl font-bold mt-2">
-      8
-    </p>
+  {roadmapData.length}
+</p>
 
     <p className="text-slate-500 mt-2">
       Learning Steps
@@ -219,12 +229,12 @@ const [roadmapData, setRoadmapData] = useState<any[]>([
     </h3>
 
     <p className="text-4xl font-bold mt-2">
-      6-9
+    {totalDuration}
     </p>
 
-    <p className="text-slate-500 mt-2">
-      Months
-    </p>
+<p className="text-slate-500 mt-2">
+  Weeks
+</p>
   </div>
 
   {/* Difficulty */}
@@ -247,8 +257,8 @@ const [roadmapData, setRoadmapData] = useState<any[]>([
     </h3>
 
     <p className="text-4xl font-bold mt-2">
-      Medium
-    </p>
+  {difficulty}
+</p>
 
     <p className="text-slate-500 mt-2">
       Level
@@ -257,43 +267,7 @@ const [roadmapData, setRoadmapData] = useState<any[]>([
 
 </div>
 
-<div
- className="
- bg-slate-900/60
- backdrop-blur-xl
- border border-slate-700/40
- rounded-3xl
- p-6
- mb-8
- "
->
 
-<h2 className="text-xl font-bold mb-4">
-📊 Roadmap Progress
-</h2>
-
-<div className="w-full bg-slate-800 h-4 rounded-full">
-
-<div
- className="
- bg-gradient-to-r
- from-blue-500
- to-purple-500
- h-4
- rounded-full
- "
- style={{
-  width: "35%"
- }}
-/>
-
-</div>
-
-<p className="text-slate-400 mt-3">
-35% Complete
-</p>
-
-</div>
 
 
 {roadmapData.length > 0 && (
