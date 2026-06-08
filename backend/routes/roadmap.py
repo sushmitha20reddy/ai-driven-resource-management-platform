@@ -1,10 +1,10 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-
 from openai import OpenAI
 from dotenv import load_dotenv
 
 import os
+import json
 
 load_dotenv()
 
@@ -18,38 +18,60 @@ client = OpenAI(
 class RoadmapRequest(BaseModel):
     goal: str
 
+
 @router.post("/generate-roadmap")
-async def generate_roadmap(
-    data: RoadmapRequest
-):
+async def generate_roadmap(data: RoadmapRequest):
 
     prompt = f"""
-Create a detailed learning roadmap for:
+Create a learning roadmap for:
 
 {data.goal}
 
-Include:
+Return ONLY valid JSON.
 
-1. Beginner Phase
-2. Intermediate Phase
-3. Advanced Phase
-4. Projects
-5. Certifications
+Format:
 
-Format nicely.
+[
+  {{
+    "title": "Topic Name",
+    "duration": "2 Weeks",
+    "description": "Short explanation of what to learn"
+  }}
+]
+
+Rules:
+- Generate 8 to 12 learning phases.
+- Start from beginner level.
+- End at job-ready level.
+- Make roadmap specific to the user's goal.
+- Return ONLY JSON.
 """
 
-    response = client.chat.completions.create(
-        model="openai/gpt-3.5-turbo",
-        messages=[
-            {
-                "role": "user",
-                "content": prompt
-            }
-        ]
-    )
+    try:
 
-    return {
-        "roadmap":
-        response.choices[0].message.content
-    }
+        response = client.chat.completions.create(
+            model="openai/gpt-3.5-turbo",
+            messages=[
+                {
+                    "role": "user",
+                    "content": prompt
+                }
+            ]
+        )
+
+        result = response.choices[0].message.content
+
+        roadmap = json.loads(result)
+
+        return {
+            "roadmap": roadmap
+        }
+
+    except Exception as e:
+
+        print("Roadmap Error:", str(e))
+
+        return {
+            "roadmap": [],
+            "error": str(e)
+        }
