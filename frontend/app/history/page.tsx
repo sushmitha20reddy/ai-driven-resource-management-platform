@@ -412,8 +412,7 @@ export default function HistoryPage() {
           results.length
             ? (
                 results.reduce(
-                  (a, b) =>
-                    a + b.percentage,
+                  (a, b) => a + b.percentage,
                   0
                 ) / results.length
               ).toFixed(0)
@@ -422,7 +421,29 @@ export default function HistoryPage() {
       </h3>
     </div>
 
+    <div>
+      <p className="text-slate-400">
+        Best Subject
+      </p>
 
+      <h3 className="text-3xl font-bold text-green-400 mt-2">
+        {results[0]?.subject || "-"}
+      </h3>
+    </div>
+
+    <div>
+      <p className="text-slate-400">
+        Total Quizzes
+      </p>
+
+      <h3 className="text-5xl font-bold text-purple-400 mt-2">
+        {results.length}
+      </h3>
+    </div>
+
+  </div>
+
+</div>
 
 <div
   className="
@@ -449,30 +470,6 @@ export default function HistoryPage() {
     Every quiz improves your skills and
     prepares you for interviews.
   </p>
-
-</div>
-
-    <div>
-      <p className="text-slate-400">
-        Best Subject
-      </p>
-
-      <h3 className="text-3xl font-bold text-green-400 mt-2">
-        {results[0]?.subject || "-"}
-      </h3>
-    </div>
-
-    <div>
-      <p className="text-slate-400">
-        Total Quizzes
-      </p>
-
-      <h3 className="text-5xl font-bold text-purple-400 mt-2">
-        {results.length}
-      </h3>
-    </div>
-
-  </div>
 
 </div>
 
