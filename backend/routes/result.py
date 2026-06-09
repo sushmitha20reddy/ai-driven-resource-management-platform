@@ -58,3 +58,42 @@ async def get_results_by_email(
     )
 
     return results
+
+@router.get("/analytics/{email}")
+async def analytics_by_email(
+    email: str,
+    db: Session = Depends(get_db)
+):
+
+    results = (
+        db.query(Result)
+        .filter(
+            Result.user_email == email
+        )
+        .all()
+    )
+
+    total_quizzes = len(results)
+
+    if total_quizzes == 0:
+        return {
+            "total_quizzes": 0,
+            "average_percentage": 0,
+            "best_score": 0,
+            "subjects": 0
+        }
+
+    return {
+        "total_quizzes": total_quizzes,
+        "average_percentage":
+            sum(r.percentage for r in results)
+            / total_quizzes,
+        "best_score":
+            max(r.percentage for r in results),
+        "subjects":
+            len(
+                set(
+                    r.subject for r in results
+                )
+            )
+    }

@@ -30,7 +30,12 @@ const [analytics, setAnalytics] = useState({
 
   const fetchAnalytics = async () => {
     try {
-      const response = await axios.get(`${API_URL}/analytics`);
+      const email =
+  localStorage.getItem("user_email");
+
+const response = await axios.get(
+  `${API_URL}/analytics/${email}`
+);
 
       setAnalytics(response.data);
     } catch (error) {
