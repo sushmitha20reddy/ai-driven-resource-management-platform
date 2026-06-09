@@ -12,39 +12,26 @@ export default function HistoryPage() {
     fetchResults();
   }, []);
 
-  const fetchResults = async () => {
-    try {
+ const fetchResults = async () => {
+  try {
 
-      const email =
-        localStorage.getItem("user_email");
+    const email =
+      localStorage.getItem("user_email");
 
-      console.log("EMAIL =", email);
+    if (!email) return;
 
-      if (!email) {
-        console.log("No user email found");
-        return;
-      }
+    const response = await axios.get(
+      `https://ai-platform-backend-5msg.onrender.com/results/${email}`
+    );
 
-      const response = await axios.get(
-        `https://ai-platform-backend-5msg.onrender.com/results/${email}`
-      );
+    setResults(response.data);
 
-      console.log(
-        "RESULTS =",
-        response.data
-      );
+  } catch (error) {
 
-      setResults(response.data);
+    console.error(error);
 
-    } catch (error) {
-
-      console.error(
-        "Failed to fetch history:",
-        error
-      );
-
-    }
-  };
+  }
+};
 
   return (
     <main className="min-h-screen text-white flex">

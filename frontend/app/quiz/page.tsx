@@ -60,16 +60,30 @@ const response = await axios.post(
 
   try {
 
-    await axios.post(
-  `${API_URL}/save-result`,
-  {
-    user_email:
-      localStorage.getItem("user_email"),
-      subject,
-      score: totalScore,
-      percentage
-  }
-);
+    const email =
+      localStorage.getItem("user_email");
+
+    console.log("Saving result for:", email);
+
+    if (!email) {
+      alert("User email not found");
+      return;
+    }
+
+    const response = await axios.post(
+      `${API_URL}/save-result`,
+      {
+        user_email: email,
+        subject,
+        score: totalScore,
+        percentage
+      }
+    );
+
+    console.log(
+      "Result Saved:",
+      response.data
+    );
 
   } catch (error) {
 
