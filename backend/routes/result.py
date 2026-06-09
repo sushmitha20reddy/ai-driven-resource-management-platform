@@ -39,6 +39,21 @@ async def get_all_results(
 ):
     return db.query(Result).all()
 
+@router.get("/results/{email}")
+async def get_results_by_email(
+    email: str,
+    db: Session = Depends(get_db)
+):
+
+    results = (
+        db.query(Result)
+        .filter(
+            Result.user_email == email
+        )
+        .all()
+    )
+
+    return results
 @router.get("/analytics")
 async def analytics(
     db: Session = Depends(get_db)
