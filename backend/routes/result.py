@@ -83,17 +83,66 @@ async def analytics_by_email(
             "subjects": 0
         }
 
+    average_percentage = (
+        sum(r.percentage for r in results)
+        / total_quizzes
+    )
+
+    best_score = max(
+        r.percentage for r in results
+    )
+
+    subjects = len(
+        set(
+            r.subject
+            for r in results
+        )
+    )
+
     return {
         "total_quizzes": total_quizzes,
-        "average_percentage":
-            sum(r.percentage for r in results)
-            / total_quizzes,
-        "best_score":
-            max(r.percentage for r in results),
-        "subjects":
-            len(
-                set(
-                    r.subject for r in results
-                )
-            )
+        "average_percentage": average_percentage,
+        "best_score": best_score,
+        "subjects": subjects
     }
+
+@router.get("/recent-activity/{email}")
+async def recent_activity_by_email(
+    email: str,
+    db: Session = Depends(get_db)
+):
+
+    results = (
+        db.query(Result)
+        .filter(
+            Result.user_email == email
+        )
+        .order_by(Result.id.desc())
+        .limit(10)
+        .all()
+    )
+
+    return results
+
+@router.get("/chart-data/{email}")
+async def chart_data(
+    email: str,
+    db: Session = Depends(get_db)
+):
+
+    results = (
+        db.query(Result)
+        .filter(
+            Result.user_email == email
+        )
+        .order_by(Result.id.asc())
+        .all()
+    )
+
+    return [
+        {
+            "quiz": f"Quiz {i+1}",
+            "score": r.percentage
+        }
+        for i, r in enumerate(results)
+    ]
