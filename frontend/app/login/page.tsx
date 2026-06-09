@@ -34,9 +34,16 @@ export default function LoginPage() {
       response.data.access_token
     );
 
-    localStorage.setItem(
+    console.log("Saving email:", email);
+
+localStorage.setItem(
   "user_email",
   email
+);
+
+console.log(
+  "Stored:",
+  localStorage.getItem("user_email")
 );
 
     alert("Login successful 🚀");

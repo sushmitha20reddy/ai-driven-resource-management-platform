@@ -26,6 +26,25 @@ const [analytics, setAnalytics] = useState({
 
   const [search, setSearch] = useState("");
 
+const [userEmail, setUserEmail] =
+  useState("");
+
+useEffect(() => {
+
+  const email =
+    localStorage.getItem("user_email");
+
+  console.log(
+    "Dashboard Email =",
+    email
+  );
+
+  if (email) {
+    setUserEmail(email);
+  }
+
+}, []);
+
   const API_URL = "https://ai-platform-backend-5msg.onrender.com";
 
   const fetchAnalytics = async () => {
@@ -159,19 +178,31 @@ useEffect(() => {
   "
             >
               <div
-                className="
-      w-12 h-12
-      rounded-full
-      bg-green-600
-      flex items-center justify-center
-      font-bold
-    "
-              >
-                S
-              </div>
+  className="
+    w-14
+    h-14
+    rounded-full
+    bg-green-500
+    flex
+    items-center
+    justify-center
+    text-xl
+    font-bold
+  "
+>
+  {userEmail
+    ? userEmail.charAt(0).toUpperCase()
+    : "G"}
+</div>
 
               <div>
-                <p className="font-semibold">Sushmitha</p>
+                <h3 className="font-bold">
+  {
+    userEmail
+      ? userEmail.split("@")[0]
+      : "Guest"
+  }
+</h3>
 
                 <p className="text-gray-400 text-sm">Student</p>
               </div>
