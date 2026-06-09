@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import axios from "axios";
+import Sidebar from "../../components/Sidebar";
 
 export default function QuizPage() {
   const [subject, setSubject] = useState("");
@@ -97,27 +98,73 @@ const response = await axios.post(
 };
 
   return (
-    <main className="min-h-screen  text-white p-10">
-      <h1 className="text-5xl font-bold mb-8">
-        AI Quiz Generator 🚀
-      </h1>
+  <main className="min-h-screen flex text-white">
 
-      <div className="flex gap-4 mb-10">
-        <input
-          type="text"
-          placeholder="Enter subject..."
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-          className="bg-gray-900 border border-gray-700 px-5 py-4 rounded-xl flex-1"
-        />
+    <Sidebar />
 
-        <button
-          onClick={generateQuiz}
-          className="bg-blue-600 px-8 py-4 rounded-xl"
-        >
-          {loading ? "Generating..." : "Generate"}
-        </button>
-      </div>
+    <section className="flex-1 p-10">
+     <div className="mb-10">
+
+  <h1
+    className="
+      text-6xl
+      font-extrabold
+      bg-gradient-to-r
+      from-blue-400
+      via-cyan-400
+      to-purple-500
+      bg-clip-text
+      text-transparent
+    "
+  >
+    AI Quiz Generator 🚀
+  </h1>
+
+  <p className="text-slate-400 mt-3 text-lg">
+    Generate AI-powered quizzes and test your knowledge instantly.
+  </p>
+
+</div>
+    <div className="flex gap-4 mb-10">
+
+  <input
+    placeholder="Example: Python, AI, DSA, Web Technology..."
+    value={subject}
+    onChange={(e) =>
+      setSubject(e.target.value)
+    }
+    className="
+      flex-1
+      bg-slate-900/60
+      backdrop-blur-xl
+      border border-slate-700/40
+      rounded-2xl
+      px-6
+      py-5
+      text-white
+      text-lg
+      outline-none
+    "
+  />
+
+  <button
+    onClick={generateQuiz}
+    className="
+      px-10
+      py-5
+      rounded-2xl
+      bg-gradient-to-r
+      from-blue-600
+      to-purple-600
+      font-semibold
+      hover:scale-105
+      transition-all
+    "
+  >
+    ✨ Generate
+  </button>
+
+</div>
 
       <div className="space-y-8">
         {quiz.map((q, index) => (
@@ -182,6 +229,44 @@ const response = await axios.post(
         ))}
       </div>
 
+{quiz.length > 0 && (
+
+<div className="grid md:grid-cols-3 gap-6 mb-10">
+
+  <div className="bg-slate-900/60 p-6 rounded-3xl">
+    <h3 className="text-slate-400">
+      Subject
+    </h3>
+
+    <p className="text-3xl font-bold">
+      {subject}
+    </p>
+  </div>
+
+  <div className="bg-slate-900/60 p-6 rounded-3xl">
+    <h3 className="text-slate-400">
+      Questions
+    </h3>
+
+    <p className="text-3xl font-bold">
+      {quiz.length}
+    </p>
+  </div>
+
+  <div className="bg-slate-900/60 p-6 rounded-3xl">
+    <h3 className="text-slate-400">
+      Difficulty
+    </h3>
+
+    <p className="text-3xl font-bold">
+      Medium
+    </p>
+  </div>
+
+</div>
+
+)}
+
       {quiz.length > 0 && (
         <button
           onClick={submitQuiz}
@@ -207,6 +292,10 @@ const response = await axios.post(
           </p>
         </div>
       )}
-    </main>
-  );
+    
+      </section>
+
+  </main>
+);
+  
 }
