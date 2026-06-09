@@ -91,24 +91,7 @@ export default function ChatPage() {
       <p className="text-slate-400 mt-2">
         Your intelligent learning companion
       </p>
-<div className="grid md:grid-cols-3 gap-6 mb-8 mt-8">
 
-  <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-5 border border-blue-500/20">
-    <p className="text-slate-400">Chats</p>
-    <h2 className="text-4xl font-bold">12</h2>
-  </div>
-
-  <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-5 border border-orange-500/20">
-    <p className="text-slate-400">Quizzes</p>
-    <h2 className="text-4xl font-bold">8</h2>
-  </div>
-
-  <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-5 border border-green-500/20">
-    <p className="text-slate-400">Roadmaps</p>
-    <h2 className="text-4xl font-bold">3</h2>
-  </div>
-
-</div>
 
 <div className="grid md:grid-cols-4 gap-6 mb-8">
 
