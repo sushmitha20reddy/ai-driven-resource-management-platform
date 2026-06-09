@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
+import Sidebar from "../../components/Sidebar";
+
 export default function ChatPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -74,39 +76,122 @@ export default function ChatPage() {
   };
 
   return (
-    <main className="flex h-screen">
-      {/* Sidebar */}
-      <aside
-        className="
-w-80
-bg-[#020617]
-border-r
-border-slate-800
-p-5
-flex
-flex-col
-text-white
-"
-      >
-        <h1 className="text-2xl font-bold mb-8">AI Product 🚀</h1>
+    <main className="min-h-screen flex text-white">
 
-        <button
-          onClick={newChat}
-          className="bg-blue-600 py-3 rounded-xl font-semibold hover:bg-blue-500 transition"
-        >
-          + New Chat
-        </button>
-      </aside>
+  <Sidebar />
+
+  <section className="flex-1 p-8">
+
+    {/* Header */}
+
+    <div className="mb-8">
+
+      <h1 className="text-5xl font-bold"> 🤖 AI Assistant </h1>
+
+      <p className="text-slate-400 mt-2">
+        Your intelligent learning companion
+      </p>
+<div className="grid md:grid-cols-3 gap-6 mb-8 mt-8">
+
+  <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-5 border border-blue-500/20">
+    <p className="text-slate-400">Chats</p>
+    <h2 className="text-4xl font-bold">12</h2>
+  </div>
+
+  <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-5 border border-orange-500/20">
+    <p className="text-slate-400">Quizzes</p>
+    <h2 className="text-4xl font-bold">8</h2>
+  </div>
+
+  <div className="bg-slate-900/60 backdrop-blur-xl rounded-3xl p-5 border border-green-500/20">
+    <p className="text-slate-400">Roadmaps</p>
+    <h2 className="text-4xl font-bold">3</h2>
+  </div>
+
+</div>
+
+<div className="grid md:grid-cols-4 gap-6 mb-8">
+
+  <div className="bg-slate-900/60 rounded-3xl p-6 border border-purple-500/20">
+    <div className="text-5xl mb-4">💻</div>
+    <h3 className="text-xl font-bold">Coding Help</h3>
+    <p className="text-slate-400 mt-2">
+      Debug code and solve problems
+    </p>
+  </div>
+
+  <div className="bg-slate-900/60 rounded-3xl p-6 border border-blue-500/20">
+    <div className="text-5xl mb-4">🎓</div>
+    <h3 className="text-xl font-bold">Learning Resources</h3>
+    <p className="text-slate-400 mt-2">
+      Find study materials
+    </p>
+  </div>
+
+  <div className="bg-slate-900/60 rounded-3xl p-6 border border-green-500/20">
+    <div className="text-5xl mb-4">🎯</div>
+    <h3 className="text-xl font-bold">Career Guidance</h3>
+    <p className="text-slate-400 mt-2">
+      AI career advice
+    </p>
+  </div>
+
+  <div className="bg-slate-900/60 rounded-3xl p-6 border border-orange-500/20">
+    <div className="text-5xl mb-4">📄</div>
+    <h3 className="text-xl font-bold">Resume Review</h3>
+    <p className="text-slate-400 mt-2">
+      Improve your resume
+    </p>
+  </div>
+
+</div>
+
+    </div>
 
       {/* Chat Section */}
-      <section className="flex-1 flex flex-col">
-        {/* Top Bar */}
-        <div className="border-b border-gray-300 p-5 text-3xl font-bold text-white">
-          🤖 AI Assistant
-        </div>
+      <div
+  className="
+    bg-slate-900/60
+    backdrop-blur-xl
+    border border-slate-700/40
+    rounded-3xl
+    overflow-hidden
+  "
+>
+       
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+       <div
+  className="
+    h-[500px]
+    overflow-y-auto
+    p-8
+    space-y-6
+  "
+>
+
+{messages.length === 1 && !loading && (
+
+  <div className="text-center mt-16">
+
+    <div className="text-7xl mb-5">
+      🤖
+    </div>
+
+    <h2 className="text-3xl font-bold">
+      Hello 👋
+    </h2>
+
+    <p className="text-slate-400 mt-3">
+      Ask me anything about AI, Coding,
+      DSA, Interviews, Career Guidance,
+      or Projects.
+    </p>
+
+  </div>
+
+)}
+
           {messages.map((msg, index) => (
             <div
               key={index}
@@ -136,7 +221,13 @@ text-white
         </div>
 
         {/* Input Area */}
-        <div className="p-5 border-t border-slate-700">
+        <div
+  className="
+    p-6
+    border-t
+    border-slate-700/40
+  "
+>
           <div className="flex gap-3">
             <input
               type="text"
@@ -163,23 +254,28 @@ text-white
             />
 
             <button
-              onClick={sendMessage}
-              disabled={loading}
-              className="
-        px-8
-        py-4
-        bg-blue-600
-        hover:bg-blue-500
-        rounded-2xl
-        font-semibold
-        text-white
-      "
-            >
-              {loading ? "⏳" : "🚀 Send"}
-            </button>
+  onClick={sendMessage}
+  disabled={loading}
+  className="
+    px-8
+    py-4
+    rounded-2xl
+    bg-gradient-to-r
+    from-blue-600
+    to-purple-600
+    font-semibold
+    hover:scale-105
+    transition-all
+  "
+>
+  {loading ? "⏳" : "🚀 Send"}
+</button>
           </div>
         </div>
-      </section>
-    </main>
+     </div>
+
+</section>
+
+</main>
   );
 }
