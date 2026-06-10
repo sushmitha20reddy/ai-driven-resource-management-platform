@@ -3,8 +3,10 @@ from sqlalchemy.orm import Session
 
 from database.database import SessionLocal
 from models.result_model import Result
+from models.user import User
 
 router = APIRouter()
+
 
 def get_db():
     db = SessionLocal()
@@ -13,6 +15,7 @@ def get_db():
     finally:
         db.close()
 
+
 @router.get("/admin-stats")
 async def admin_stats(
     db: Session = Depends(get_db)
@@ -20,13 +23,19 @@ async def admin_stats(
 
     results = db.query(Result).all()
 
+    users = db.query(User).all()
+
+    total_users = len(users)
+
     total_quizzes = len(results)
 
     if total_quizzes == 0:
         return {
+            "total_users": total_users,
             "total_quizzes": 0,
             "average_score": 0,
             "best_score": 0,
+            "subjects": 0,
             "recent_results": []
         }
 
@@ -39,12 +48,27 @@ async def admin_stats(
         r.percentage for r in results
     )
 
-    recent_results = results[-5:]
+    subjects = len(
+        set(
+            r.subject.strip().lower()
+            for r in results
+            if r.subject
+        )
+    )
+
+    recent_results = (
+        db.query(Result)
+        .order_by(Result.created_at.desc())
+        .limit(5)
+        .all()
+    )
 
     return {
+        "total_users": total_users,
         "total_quizzes": total_quizzes,
         "average_score": average_score,
         "best_score": best_score,
+        "subjects": subjects,
         "recent_results": [
             {
                 "email": r.user_email,
