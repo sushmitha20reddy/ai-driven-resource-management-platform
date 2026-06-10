@@ -361,19 +361,45 @@ useEffect(() => {
 
             <div className="space-y-4">
               {activities.map((activity, index) => (
-                <div
-                  key={index}
-                  className="
-                      bg-gray-800
-                      p-4
-                      rounded-xl
-                    "
-                >
-                  ✅ {activity.subject}
-                  {" - "}
-                  {activity.percentage}%
-                </div>
-              ))}
+                <div className="space-y-4">
+
+  {activities.length === 0 ? (
+
+    <p className="text-slate-400">
+      No Activity Yet
+    </p>
+
+  ) : (
+
+    activities.map(
+      (activity, index) => (
+
+        <div
+          key={index}
+          className="
+            bg-slate-800
+            rounded-xl
+            p-4
+          "
+        >
+          <p>
+            ✅ {activity.subject}
+          </p>
+
+          <p className="text-slate-400">
+            {activity.percentage}%
+          </p>
+
+        </div>
+
+      )
+    )
+
+  )}
+
+</div>
+              )
+              )}
             </div>
           </div>
         </div>
