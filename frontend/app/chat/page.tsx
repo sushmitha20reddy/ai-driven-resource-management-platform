@@ -1,13 +1,17 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, ChangeEvent } from "react";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import Sidebar from "../../components/Sidebar";
 
+
+
 export default function ChatPage() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+const [selectedFile, setSelectedFile] =
+  useState<File | null>(null);
   const chatEndRef = useRef<HTMLDivElement | null>(null);
   const [messages, setMessages] = useState([
     {
@@ -31,6 +35,28 @@ export default function ChatPage() {
 
     setMessage("");
   };
+
+  const handleFileUpload = (
+  e: ChangeEvent<HTMLInputElement>
+) => {
+
+  const file =
+    e.target.files?.[0];
+
+  if (!file) return;
+
+  setSelectedFile(file);
+
+  setMessages((prev) => [
+    ...prev,
+    {
+      text: `📎 Uploaded: ${file.name}`,
+      sender: "user",
+    },
+  ]);
+
+};
+
   const sendMessage = async () => {
     if (message.trim() === "") return;
 
@@ -204,25 +230,84 @@ export default function ChatPage() {
         </div>
 
         {/* Input Area */}
-        <div
+
+<div
   className="
     p-6
     border-t
     border-slate-700/40
   "
 >
-          <div className="flex gap-3">
-            <input
-              type="text"
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  sendMessage();
-                }
-              }}
-              placeholder="Ask anything about AI, Coding, DSA..."
-              className="
+
+  <div className="flex gap-3 items-center">
+
+    <input
+      type="file"
+      id="fileUpload"
+      hidden
+      onChange={handleFileUpload}
+    />
+
+    {/* File Upload */}
+
+    <button
+      onClick={() =>
+        document
+          .getElementById("fileUpload")
+          ?.click()
+      }
+      className="
+        p-4
+        rounded-2xl
+        bg-slate-800
+        hover:bg-slate-700
+        transition
+      "
+    >
+      📎
+    </button>
+
+    {/* Camera */}
+
+    <button
+      className="
+        p-4
+        rounded-2xl
+        bg-slate-800
+        hover:bg-slate-700
+        transition
+      "
+    >
+      📷
+    </button>
+
+    {/* Microphone */}
+
+    <button
+      className="
+        p-4
+        rounded-2xl
+        bg-slate-800
+        hover:bg-slate-700
+        transition
+      "
+    >
+      🎤
+    </button>
+
+    <input
+      type="text"
+      value={message}
+      onChange={(e) =>
+        setMessage(e.target.value)
+      }
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
+          sendMessage();
+        }
+      }}
+      placeholder="Ask anything about AI, Coding, DSA..."
+      className="
         flex-1
         bg-slate-900
         text-white
@@ -234,28 +319,38 @@ export default function ChatPage() {
         focus:border-blue-500
         outline-none
       "
-            />
+    />
 
-            <button
-  onClick={sendMessage}
-  disabled={loading}
-  className="
-    px-8
-    py-4
-    rounded-2xl
-    bg-gradient-to-r
-    from-blue-600
-    to-purple-600
-    font-semibold
-    hover:scale-105
-    transition-all
-  "
->
-  {loading ? "⏳" : "🚀 Send"}
-</button>
-          </div>
-        </div>
-     </div>
+    <button
+      onClick={sendMessage}
+      disabled={loading}
+      className="
+        px-8
+        py-4
+        rounded-2xl
+        bg-gradient-to-r
+        from-blue-600
+        to-purple-600
+        font-semibold
+        hover:scale-105
+        transition-all
+      "
+    >
+      {loading ? "⏳" : "🚀"}
+    </button>
+
+  </div>
+
+  {selectedFile && (
+    <div className="mt-3 text-sm text-slate-400">
+      Selected File:
+      {" "}
+      {selectedFile.name}
+    </div>
+  )}
+
+</div>
+</div>
 
 </section>
 
