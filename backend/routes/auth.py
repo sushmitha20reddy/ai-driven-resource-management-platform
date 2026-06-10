@@ -37,39 +37,41 @@ def signup(
     return {
         "message": "User created successfully 🚀"
     }
+
+
 @router.post("/login")
-def login(
-    user: UserLogin,
+async def login(
+    data: LoginSchema,
     db: Session = Depends(get_db)
 ):
 
-    existing_user = db.query(User).filter(
-        User.email == user.email
-    ).first()
+    # ADMIN LOGIN
 
-    if not existing_user:
-
+    if (
+        data.email == "admin@gmail.com"
+        and
+        data.password == "admin123"
+    ):
         return {
-            "error": "Invalid email"
+            "access_token": "admin_token",
+            "role": "admin"
         }
 
-    password_correct = verify_password(
-        user.password,
-        existing_user.password
+    # NORMAL USER LOGIN
+
+    user = (
+        db.query(User)
+        .filter(User.email == data.email)
+        .first()
     )
 
-    if not password_correct:
-
-        return {
-            "error": "Invalid password"
-        }
-
-    token = create_access_token({
-        "user_id": existing_user.id,
-        "email": existing_user.email
-    })
+    if not user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid credentials"
+        )
 
     return {
-        "access_token": token,
-        "token_type": "bearer"
+        "access_token": "user_token",
+        "role": "user"
     }
