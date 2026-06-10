@@ -73,14 +73,65 @@ const startVoiceInput = () => {
 
   recognition.lang = "en-US";
 
+  recognition.continuous = false;
+
+  recognition.interimResults = false;
+
   recognition.start();
 
-  recognition.onresult = (event: any) => {
+  recognition.onresult = async (
+    event: any
+  ) => {
 
     const transcript =
       event.results[0][0].transcript;
 
     setMessage(transcript);
+
+    // Auto Send
+
+    const userMessage = {
+      text: transcript,
+      sender: "user",
+    };
+
+    setMessages((prev) => [
+      ...prev,
+      userMessage,
+    ]);
+
+    try {
+
+      setLoading(true);
+
+      const API_URL =
+        "https://ai-platform-backend-5msg.onrender.com";
+
+      const response =
+        await axios.post(
+          `${API_URL}/chat`,
+          {
+            message: transcript,
+          }
+        );
+
+      setMessages((prev) => [
+        ...prev,
+        {
+          text: response.data.response,
+          sender: "ai",
+        },
+      ]);
+
+    } catch (error) {
+
+      console.error(error);
+
+    } finally {
+
+      setLoading(false);
+
+    }
 
   };
 
