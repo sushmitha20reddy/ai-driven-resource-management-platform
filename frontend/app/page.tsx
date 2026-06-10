@@ -5,7 +5,6 @@ import Link from "next/link";
 export default function HomePage() {
   return (
     <main className="min-h-screen bg-black text-white overflow-hidden">
-
       {/* NAVBAR */}
       <nav className="mx-6 mt-6 border border-slate-800 rounded-3xl px-8 py-5 flex justify-between items-center backdrop-blur-xl">
         <h1 className="text-4xl font-bold">
@@ -36,12 +35,9 @@ export default function HomePage() {
 
       {/* HERO */}
       <section className="max-w-7xl mx-auto px-10 py-20">
-
         <div className="grid lg:grid-cols-2 gap-10 items-center">
-
           {/* LEFT */}
           <div>
-
             <div
               className="
                 inline-block
@@ -65,7 +61,6 @@ export default function HomePage() {
             >
               AI Driven Intelligent
               <br />
-
               <span
                 className="
                   bg-gradient-to-r
@@ -78,7 +73,6 @@ export default function HomePage() {
               >
                 Resource Management
               </span>
-
               <br />
               Platform
             </h1>
@@ -91,13 +85,11 @@ export default function HomePage() {
                 max-w-2xl
               "
             >
-              Learn smarter, generate AI roadmaps,
-              analyze resumes, practice quizzes,
-              and track your learning journey.
+              Learn smarter, generate AI roadmaps, analyze resumes, practice
+              quizzes, and track your learning journey.
             </p>
 
             <div className="flex gap-5 mt-10">
-
               <Link
                 href="/signup"
                 className="
@@ -125,126 +117,41 @@ export default function HomePage() {
               >
                 Login →
               </Link>
-
             </div>
-
           </div>
 
           {/* RIGHT SIDE AI IMAGE */}
-          <div className="relative flex justify-center">
-
-            {/* Glow */}
+          <div className="relative">
             <div
               className="
-                absolute
-                w-[500px]
-                h-[500px]
-                rounded-full
-                bg-purple-700/20
-                blur-[120px]
+              absolute
+              inset-0
+            bg-purple-600/20
+              blur-[150px]
               "
             />
 
-            {/* AI Head */}
-            <div
+            <img
+              src="/hero-ai.png"
+              alt="AI Illustration"
               className="
-                relative
-                w-[450px]
-                h-[450px]
-                rounded-full
-                border
-                border-cyan-500/30
-                bg-gradient-to-br
-                from-blue-950
-                to-purple-950
-                flex
-                items-center
-                justify-center
-                shadow-[0_0_80px_rgba(59,130,246,0.4)]
-              "
-            >
-              <div className="text-9xl">🧠</div>
+              relative
+              z-10
+              w-full
+              animate-pulse
+               "
+            />
             </div>
-
-            {/* Floating Cards */}
-
-            <div
-              className="
-                absolute
-                top-0
-                left-10
-                bg-slate-900/80
-                border
-                border-cyan-500/30
-                rounded-3xl
-                p-5
-              "
-            >
-              💬 AI Assistant
-            </div>
-
-            <div
-              className="
-                absolute
-                top-10
-                right-0
-                bg-slate-900/80
-                border
-                border-purple-500/30
-                rounded-3xl
-                p-5
-              "
-            >
-              🎓 AI Roadmaps
-            </div>
-
-            <div
-              className="
-                absolute
-                bottom-20
-                left-0
-                bg-slate-900/80
-                border
-                border-green-500/30
-                rounded-3xl
-                p-5
-              "
-            >
-              ✅ Quizzes
-            </div>
-
-            <div
-              className="
-                absolute
-                bottom-20
-                right-0
-                bg-slate-900/80
-                border
-                border-orange-500/30
-                rounded-3xl
-                p-5
-              "
-            >
-              📄 Resume Analyzer
-            </div>
-
           </div>
-
-        </div>
-
       </section>
 
       {/* FEATURE CARDS */}
 
       <section className="max-w-7xl mx-auto px-10 pb-20">
-
         <div className="grid md:grid-cols-4 gap-6">
-
           <div className="bg-slate-900/60 rounded-3xl p-8 border border-purple-500/20">
             <div className="text-5xl mb-4">🧠</div>
-            <h3 className="text-2xl font-bold">
-              AI Powered
-            </h3>
+            <h3 className="text-2xl font-bold">AI Powered</h3>
             <p className="text-slate-400 mt-3">
               Smart AI assistance for learning.
             </p>
@@ -252,9 +159,7 @@ export default function HomePage() {
 
           <div className="bg-slate-900/60 rounded-3xl p-8 border border-blue-500/20">
             <div className="text-5xl mb-4">📈</div>
-            <h3 className="text-2xl font-bold">
-              Track Progress
-            </h3>
+            <h3 className="text-2xl font-bold">Track Progress</h3>
             <p className="text-slate-400 mt-3">
               Monitor growth and performance.
             </p>
@@ -262,28 +167,17 @@ export default function HomePage() {
 
           <div className="bg-slate-900/60 rounded-3xl p-8 border border-green-500/20">
             <div className="text-5xl mb-4">🎯</div>
-            <h3 className="text-2xl font-bold">
-              Personalized
-            </h3>
-            <p className="text-slate-400 mt-3">
-              Learning tailored for you.
-            </p>
+            <h3 className="text-2xl font-bold">Personalized</h3>
+            <p className="text-slate-400 mt-3">Learning tailored for you.</p>
           </div>
 
           <div className="bg-slate-900/60 rounded-3xl p-8 border border-orange-500/20">
             <div className="text-5xl mb-4">⚡</div>
-            <h3 className="text-2xl font-bold">
-              Fast & Efficient
-            </h3>
-            <p className="text-slate-400 mt-3">
-              Save time and learn faster.
-            </p>
+            <h3 className="text-2xl font-bold">Fast & Efficient</h3>
+            <p className="text-slate-400 mt-3">Save time and learn faster.</p>
           </div>
-
         </div>
-
       </section>
-
     </main>
   );
 }
