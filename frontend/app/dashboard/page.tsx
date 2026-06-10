@@ -12,13 +12,12 @@ import PerformanceChart from "../../components/PerformanceChart";
 export default function DashboardPage() {
   const router = useRouter();
 
-
-const [analytics, setAnalytics] = useState({
-  total_quizzes: 0,
-  average_percentage: 0,
-  best_score: 0,
-  subjects: 0,
-});
+  const [analytics, setAnalytics] = useState({
+    total_quizzes: 0,
+    average_percentage: 0,
+    best_score: 0,
+    subjects: 0,
+  });
 
   const [activities, setActivities] = useState<any[]>([]);
 
@@ -26,35 +25,25 @@ const [analytics, setAnalytics] = useState({
 
   const [search, setSearch] = useState("");
 
-const [userEmail, setUserEmail] =
-  useState("");
+  const [userEmail, setUserEmail] = useState("");
 
-useEffect(() => {
+  useEffect(() => {
+    const email = localStorage.getItem("user_email");
 
-  const email =
-    localStorage.getItem("user_email");
+    console.log("Dashboard Email =", email);
 
-  console.log(
-    "Dashboard Email =",
-    email
-  );
-
-  if (email) {
-    setUserEmail(email);
-  }
-
-}, []);
+    if (email) {
+      setUserEmail(email);
+    }
+  }, []);
 
   const API_URL = "https://ai-platform-backend-5msg.onrender.com";
 
   const fetchAnalytics = async () => {
     try {
-      const email =
-  localStorage.getItem("user_email");
+      const email = localStorage.getItem("user_email");
 
-const response = await axios.get(
-  `${API_URL}/analytics/${email}`
-);
+      const response = await axios.get(`${API_URL}/analytics/${email}`);
 
       setAnalytics(response.data);
     } catch (error) {
@@ -63,29 +52,16 @@ const response = await axios.get(
   };
 
   const fetchActivities = async () => {
+    try {
+      const email = localStorage.getItem("user_email");
 
-  try {
+      const response = await axios.get(`${API_URL}/recent-activity/${email}`);
 
-    const email =
-      localStorage.getItem(
-        "user_email"
-      );
-
-    const response =
-      await axios.get(
-        `${API_URL}/recent-activity/${email}`
-      );
-
-    setActivities(
-      response.data
-    );
-
-  } catch (error) {
-
-    console.error(error);
-
-  }
-};
+      setActivities(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleSearch = () => {
     const value = search.toLowerCase();
@@ -105,18 +81,16 @@ const response = await axios.get(
     }
   };
 
-useEffect(() => {
-  fetchAnalytics();
-  fetchActivities();
-}, []);
-
-  
+  useEffect(() => {
+    fetchAnalytics();
+    fetchActivities();
+  }, []);
 
   return (
-    <main className="min-h-screen bg-black text-white flex">
+    <main className="h-screen bg-black text-white flex overflow-hidden">
       {sidebarOpen && <Sidebar />}
 
-      <section className="flex-1 p-10">
+      <section className="flex-1 p-5 overflow-y-auto">
         {/* TOP BAR */}
         <div className="flex justify-between items-center mb-10">
           <div className="flex items-center gap-4">
@@ -194,7 +168,7 @@ useEffect(() => {
   "
             >
               <div
-  className="
+                className="
     w-14
     h-14
     rounded-full
@@ -205,20 +179,14 @@ useEffect(() => {
     text-xl
     font-bold
   "
->
-  {userEmail
-    ? userEmail.charAt(0).toUpperCase()
-    : "G"}
-</div>
+              >
+                {userEmail ? userEmail.charAt(0).toUpperCase() : "G"}
+              </div>
 
               <div>
                 <h3 className="font-bold">
-  {
-    userEmail
-      ? userEmail.split("@")[0]
-      : "Guest"
-  }
-</h3>
+                  {userEmail ? userEmail.split("@")[0] : "Guest"}
+                </h3>
 
                 <p className="text-gray-400 text-sm">Student</p>
               </div>
@@ -226,8 +194,8 @@ useEffect(() => {
           </div>
         </div>
         {/* HEADER */}
-        <div className="mb-10">
-          <h1 className="text-5xl font-bold mb-3">Welcome Back 👋</h1>
+        <div className="mb-16">
+          <h1 className="text-3xl font-bold mb-2">Welcome Back 👋</h1>
 
           <p className="text-gray-400 text-lg">
             AI-Driven Intelligent Resource Management Platform
@@ -241,21 +209,19 @@ useEffect(() => {
   from-blue-600
   to-blue-800
   rounded-3xl
-  p-6
+  p-4
   shadow-xl
   hover:scale-105
   transition-all
 "
           >
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold">Total Quizzes</h3>
 
               <span className="text-4xl">📊</span>
             </div>
 
-            <h2 className="text-4xl font-bold">{analytics.total_quizzes}</h2>
-
-          
+            <h2 className="text-2xl font-bold">{analytics.total_quizzes}</h2>
           </div>
 
           <div
@@ -264,23 +230,21 @@ useEffect(() => {
   from-green-600
   to-green-800
   rounded-3xl
-  p-6
+  p-4
   shadow-xl
   hover:scale-105
   transition-all
 "
           >
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold">Average Score</h3>
 
               <span className="text-4xl">📈</span>
             </div>
 
             <h2 className="text-4xl font-bold">
-              {analytics.average_percentage.toFixed(0)}%          
+              {analytics.average_percentage.toFixed(0)}%
             </h2>
-
-            
           </div>
 
           <div
@@ -289,13 +253,13 @@ useEffect(() => {
   from-purple-600
   to-purple-900
   rounded-3xl
-  p-6
+  p-4
   shadow-xl
   hover:scale-105
   transition-all
 "
           >
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold">Best Score</h3>
 
               <span className="text-4xl">🏆</span>
@@ -304,8 +268,6 @@ useEffect(() => {
             <h2 className="text-4xl font-bold">
               {Number(analytics.best_score).toFixed(0)}%
             </h2>
-
-           
           </div>
 
           <div
@@ -314,39 +276,37 @@ useEffect(() => {
   from-cyan-600
   to-blue-700
   rounded-3xl
-  p-6
+  p-4
   shadow-xl
   hover:scale-105
   transition-all
 "
           >
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex justify-between items-center mb-4">
               <h3 className="text-xl font-semibold">Subjects</h3>
 
               <span className="text-4xl">📚</span>
             </div>
 
-            <h2 className="text-4xl font-bold">
-  {analytics.subjects || 0}
-</h2>
-
-            
+            <h2 className="text-4xl font-bold">{analytics.subjects || 0}</h2>
           </div>
         </div>
         {/* CHART + ACTIVITY */}
-        <div className="grid lg:grid-cols-3 gap-6">
+        <div className="grid lg:grid-cols-[2fr_1fr] gap-6">
           <div
             className="
               lg:col-span-2
               bg-[#0f172a]
               border border-gray-800
               rounded-2xl
-              p-6
+              p-4
             "
           >
             <h2 className="text-2xl font-bold mb-4">Performance Overview</h2>
 
-            <PerformanceChart />
+           <div className="h-[280px]">
+  <PerformanceChart />
+</div>
           </div>
 
           <div
@@ -354,7 +314,7 @@ useEffect(() => {
               bg-[#0f172a]
               border border-gray-800
               rounded-2xl
-              p-6
+              p-4
             "
           >
             <h2 className="text-2xl font-bold mb-5">Recent Activity</h2>
@@ -362,48 +322,29 @@ useEffect(() => {
             <div className="space-y-4">
               {activities.map((activity, index) => (
                 <div className="space-y-4">
-
-  {activities.length === 0 ? (
-
-    <p className="text-slate-400">
-      No Activity Yet
-    </p>
-
-  ) : (
-
-    activities.map(
-      (activity, index) => (
-
-        <div
-          key={index}
-          className="
+                  {activities.length === 0 ? (
+                    <p className="text-slate-400">No Activity Yet</p>
+                  ) : (
+                    activities.map((activity, index) => (
+                      <div
+                        key={index}
+                        className="
             bg-slate-800
             rounded-xl
             p-4
           "
-        >
-          <p>
-            ✅ {activity.subject}
-          </p>
+                      >
+                        <p>✅ {activity.subject}</p>
 
-          <p className="text-slate-400">
-            {activity.percentage}%
-          </p>
-
-        </div>
-
-      )
-    )
-
-  )}
-
-</div>
-              )
-              )}
+                        <p className="text-slate-400">{activity.percentage}%</p>
+                      </div>
+                    ))
+                  )}
+                </div>
+              ))}
             </div>
           </div>
         </div>
-        
       </section>
     </main>
   );

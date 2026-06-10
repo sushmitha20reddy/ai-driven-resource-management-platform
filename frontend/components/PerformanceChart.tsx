@@ -78,9 +78,9 @@ export default function PerformanceChart() {
 
   return (
     <ResponsiveContainer
-      width="100%"
-      height={350}
-    >
+  width="100%"
+  height="100%"
+>
       <LineChart data={data}>
         <CartesianGrid
           stroke="#1e293b"
@@ -98,28 +98,26 @@ export default function PerformanceChart() {
         />
 
         <Tooltip
-          contentStyle={{
-            backgroundColor: "#0f172a",
-            border: "1px solid #334155",
-            borderRadius: "12px",
-            color: "#fff",
-          }}
-        />
+  contentStyle={{
+    backgroundColor: "#0f172a",
+    border: "1px solid #334155",
+    borderRadius: "12px",
+    color: "#fff",
+  }}
+  labelStyle={{
+    color: "#fff",
+  }}
+/>
 
-        <Line
-          type="monotone"
-          dataKey="score"
-          stroke="#3b82f6"
-          strokeWidth={4}
-          dot={{
-            r: 6,
-            fill: "#3b82f6",
-          }}
-          activeDot={{
-            r: 8,
-          }}
-        />
+         <Line
+         type="natural"
+         dataKey="score"
+         stroke="#3b82f6"
+         strokeWidth={4}
+         animationDuration={1500}
+/>
       </LineChart>
     </ResponsiveContainer>
   );
+  
 }
