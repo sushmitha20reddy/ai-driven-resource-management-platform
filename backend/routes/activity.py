@@ -13,13 +13,17 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/recent-activity")
+
+
+@router.get("/recent-activity/{email}")
 async def recent_activity(
+    email: str,
     db: Session = Depends(get_db)
 ):
 
     results = (
         db.query(Result)
+        .filter(Result.user_email == email)
         .order_by(Result.created_at.desc())
         .limit(5)
         .all()
@@ -28,8 +32,7 @@ async def recent_activity(
     return [
         {
             "subject": r.subject,
-            "percentage": r.percentage,
-            "created_at": r.created_at
+            "percentage": r.percentage
         }
         for r in results
     ]
