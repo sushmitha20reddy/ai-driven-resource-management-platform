@@ -131,7 +131,7 @@ export default function SignupPage() {
         text-white
       "
       >
-        Create Account 🚀
+        Create Account 
       </h1>
 
       <p
