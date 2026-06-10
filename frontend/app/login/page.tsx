@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export default function LoginPage() {
   return (
-    <main className="min-h-screen bg-black overflow-hidden relative">
+    <main className="h-screen overflow-y-auto bg-black relative">
 
       {/* Background Glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-black to-purple-950" />
@@ -14,7 +14,7 @@ export default function LoginPage() {
 
       <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600/20 blur-[150px]" />
 
-      <section className="relative z-10 min-h-screen flex items-center justify-center px-10">
+      <section className="relative z-10 h-screen flex items-center justify-center px-10 overflow-y-auto">
 
         <div className="grid lg:grid-cols-2 gap-20 items-center w-full max-w-7xl">
 
@@ -23,14 +23,13 @@ export default function LoginPage() {
           <div className="hidden lg:flex justify-center">
 
             <img
-              src="/robot ai.jpeg"
-              alt="AI Robot"
+              src="/robot-ai.png"
               className="
-                w-full
-                max-w-xl
-                drop-shadow-[0_0_40px_rgba(59,130,246,0.8)]
-                animate-pulse
-              "
+              w-full
+              max-w-md
+              xl:max-w-lg
+              object-contain
+               "
             />
 
           </div>
@@ -44,7 +43,7 @@ export default function LoginPage() {
               border
               border-purple-500/30
               rounded-[35px]
-              p-10
+              p-8
               shadow-[0_0_40px_rgba(139,92,246,0.3)]
               text-white
             "
@@ -72,7 +71,7 @@ export default function LoginPage() {
 
             </div>
 
-            <h1 className="text-5xl font-bold text-center">
+            <h1 className="text-4xl font-bold text-center">
               Welcome Back 🚀
             </h1>
 
