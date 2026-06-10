@@ -1,9 +1,77 @@
 "use client";
 
-import { Mail, Lock, Eye, Rocket } from "lucide-react";
+import { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
+import {
+  Rocket,
+  Mail,
+  Lock,
+  Eye
+} from "lucide-react";
+
+
 export default function LoginPage() {
+
+  const router = useRouter();
+
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+ const handleLogin = async () => {
+  try {
+    setLoading(true);
+
+    const API_URL =
+      "https://ai-platform-backend-5msg.onrender.com";
+
+    const response = await axios.post(
+      `${API_URL}/login`,
+      {
+        email,
+        password,
+      }
+    );
+
+    localStorage.setItem(
+      "token",
+      response.data.access_token
+    );
+
+    console.log("Saving email:", email);
+
+localStorage.setItem(
+  "user_email",
+  email
+);
+
+console.log(
+  "Stored:",
+  localStorage.getItem("user_email")
+);
+
+    alert("Login successful 🚀");
+
+    router.push("/dashboard");
+
+  } catch (error) {
+
+    console.error(error);
+
+    alert("Invalid credentials ❌");
+
+  } finally {
+
+    setLoading(false);
+
+  }
+};
+
   return (
     <main className="h-screen overflow-y-auto bg-black relative">
 
@@ -16,16 +84,23 @@ export default function LoginPage() {
 
       <section className="relative z-10 h-screen flex items-center justify-center px-10 overflow-y-auto">
 
-        <div className="grid lg:grid-cols-2 gap-28 items-center w-full max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-16 items-center w-full max-w-6xl">
 
           {/* LEFT SIDE */}
 
           <div className="hidden lg:flex justify-center">
 
             <img
-              src="/robot ai.jpeg"
-              className="w-full max-w-md xl:max-w-lg object-contain"
-            />
+  src="/robot ai.jpeg"
+  alt="AI Robot"
+  className="
+    w-full
+    max-w-md
+    xl:max-w-lg
+    object-contain
+    drop-shadow-[0_0_50px_rgba(59,130,246,0.5)]
+  "
+/>
 
           </div>
 
@@ -76,78 +151,51 @@ export default function LoginPage() {
 
             {/* EMAIL */}
 
-            <div className="relative mb-6">
-
-              <Mail
-                className="
-                  absolute
-                  left-5
-                  top-1/2
-                  -translate-y-1/2
-                  text-gray-400
-                "
-              />
-
-              <input
-                type="email"
-                placeholder="Email"
-                className="
-                  w-full
-                  bg-black/40
-                  border border-slate-700
-                  rounded-2xl
-                  py-3.5
-                  pl-12
-                  text-lg
-                  outline-none
-                  focus:border-blue-500
-                "
-              />
-
-            </div>
+            <input
+  type="email"
+  placeholder="Email"
+  value={email}
+  onChange={(e) =>
+    setEmail(e.target.value)
+  }
+  className="
+    w-full
+    bg-black/40
+    border border-slate-700
+    rounded-2xl
+    py-4
+    pl-14
+    pr-5
+    text-lg
+    text-white
+    outline-none
+    focus:border-blue-500
+  "
+/>
 
             {/* PASSWORD */}
 
-            <div className="relative mb-6">
-
-              <Lock
-                className="
-                  absolute
-                  left-5
-                  top-1/2
-                  -translate-y-1/2
-                  text-gray-400
-                "
-              />
-
-              <input
-                type="password"
-                placeholder="Password"
-                className="
-                  w-full
-                  bg-black/40
-                  border border-slate-700
-                  rounded-2xl
-                  py-5
-                  pl-14
-                  pr-14
-                  text-lg
-                  outline-none
-                  focus:border-blue-500
-                "
-              />
-
-              <Eye
-                className="
-                  absolute
-                  right-5
-                  top-1/2
-                  -translate-y-1/2
-                  text-gray-400
-                "
-              />
-
-            </div>
+            <input
+  type="password"
+  placeholder="Password"
+  value={password}
+  onChange={(e) =>
+    setPassword(e.target.value)
+  }
+  className="
+    w-full
+    bg-black/40
+    border border-slate-700
+    rounded-2xl
+    py-4
+    pl-14
+    pr-14
+    text-lg
+    text-white
+    outline-none
+    focus:border-blue-500
+  "
+/>
 
             {/* REMEMBER */}
 
@@ -167,21 +215,26 @@ export default function LoginPage() {
             {/* LOGIN BUTTON */}
 
             <button
-              className="
-                w-full
-                py-3.5
-                rounded-2xl
-                bg-gradient-to-r
-                from-blue-600
-                to-purple-600
-                text-xl
-                font-semibold
-                hover:scale-105
-                transition-all
-              "
-            >
-              Login →
-            </button>
+  onClick={handleLogin}
+  disabled={loading}
+  className="
+    w-full
+    py-4
+    rounded-2xl
+    bg-gradient-to-r
+    from-blue-600
+    to-purple-600
+    text-xl
+    font-semibold
+    hover:scale-105
+    transition-all
+    disabled:opacity-50
+  "
+>
+  {loading
+    ? "Logging in..."
+    : "Login →"}
+</button>
 
             {/* Divider */}
 
