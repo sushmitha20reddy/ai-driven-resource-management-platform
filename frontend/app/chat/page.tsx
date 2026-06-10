@@ -57,6 +57,35 @@ const [selectedFile, setSelectedFile] =
 
 };
 
+const startVoiceInput = () => {
+
+  const SpeechRecognition =
+    (window as any).SpeechRecognition ||
+    (window as any).webkitSpeechRecognition;
+
+  if (!SpeechRecognition) {
+    alert("Voice recognition not supported");
+    return;
+  }
+
+  const recognition =
+    new SpeechRecognition();
+
+  recognition.lang = "en-US";
+
+  recognition.start();
+
+  recognition.onresult = (event: any) => {
+
+    const transcript =
+      event.results[0][0].transcript;
+
+    setMessage(transcript);
+
+  };
+
+};
+
   const sendMessage = async () => {
     if (message.trim() === "") return;
 
@@ -229,7 +258,7 @@ const [selectedFile, setSelectedFile] =
           <div ref={chatEndRef}></div>
         </div>
 
-        {/* Input Area */}
+   {/* Input Area */}
 
 <div
   className="
@@ -238,17 +267,15 @@ const [selectedFile, setSelectedFile] =
     border-slate-700/40
   "
 >
-
   <div className="flex gap-3 items-center">
 
+    {/* File Upload */}
     <input
       type="file"
       id="fileUpload"
       hidden
       onChange={handleFileUpload}
     />
-
-    {/* File Upload */}
 
     <button
       onClick={() =>
@@ -269,7 +296,21 @@ const [selectedFile, setSelectedFile] =
 
     {/* Camera */}
 
+    <input
+      type="file"
+      accept="image/*"
+      capture="environment"
+      id="cameraInput"
+      hidden
+      onChange={handleFileUpload}
+    />
+
     <button
+      onClick={() =>
+        document
+          .getElementById("cameraInput")
+          ?.click()
+      }
       className="
         p-4
         rounded-2xl
@@ -281,9 +322,10 @@ const [selectedFile, setSelectedFile] =
       📷
     </button>
 
-    {/* Microphone */}
+    {/* Voice */}
 
     <button
+      onClick={startVoiceInput}
       className="
         p-4
         rounded-2xl
@@ -294,6 +336,8 @@ const [selectedFile, setSelectedFile] =
     >
       🎤
     </button>
+
+    {/* Text Input */}
 
     <input
       type="text"
@@ -321,6 +365,8 @@ const [selectedFile, setSelectedFile] =
       "
     />
 
+    {/* Send */}
+
     <button
       onClick={sendMessage}
       disabled={loading}
@@ -341,14 +387,13 @@ const [selectedFile, setSelectedFile] =
 
   </div>
 
+  {/* Selected File Preview */}
+
   {selectedFile && (
     <div className="mt-3 text-sm text-slate-400">
-      Selected File:
-      {" "}
-      {selectedFile.name}
+      📎 Selected File: {selectedFile.name}
     </div>
   )}
-
 </div>
 </div>
 
