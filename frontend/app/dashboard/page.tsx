@@ -63,14 +63,30 @@ const response = await axios.get(
   };
 
   const fetchActivities = async () => {
-    try {
-      const response = await axios.get(`${API_URL}/recent-activity`);
 
-      setActivities(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  try {
+
+    const email =
+      localStorage.getItem(
+        "user_email"
+      );
+
+    const response =
+      await axios.get(
+        `${API_URL}/recent-activity/${email}`
+      );
+
+    setActivities(
+      response.data
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+};
+
   const handleSearch = () => {
     const value = search.toLowerCase();
 

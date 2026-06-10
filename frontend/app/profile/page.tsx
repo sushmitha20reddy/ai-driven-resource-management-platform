@@ -10,23 +10,40 @@ export default function ProfilePage() {
 
   const [profile, setProfile] = useState<any>(null);
 
-  const [name, setName] =
-    useState("Sushmitha Reddy");
+ const [name, setName] =
+  useState("");
 
-  const [role, setRole] =
-    useState("AI Engineer");
+const [role, setRole] =
+  useState("Student");
 
-  const fetchProfile = async () => {
+ const fetchProfile = async () => {
   try {
+
+    const email =
+      localStorage.getItem(
+        "user_email"
+      );
+
+    if (!email) return;
 
     const API_URL =
       "https://ai-platform-backend-5msg.onrender.com";
 
     const response = await axios.get(
-      `${API_URL}/profile/test@gmail.com`
+      `${API_URL}/profile/${email}`
     );
 
     setProfile(response.data);
+
+    setName(
+      response.data.name ||
+      email.split("@")[0]
+    );
+
+    setRole(
+      response.data.role ||
+      "Student"
+    );
 
   } catch (error) {
     console.error(error);
@@ -98,7 +115,11 @@ export default function ProfilePage() {
                 font-bold
               "
             >
-              {name.charAt(0)}
+              {
+  name
+    ? name.charAt(0).toUpperCase()
+    : "U"
+}
             </div>
 
             <div>

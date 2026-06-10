@@ -13,16 +13,23 @@ def get_db():
     finally:
         db.close()
 
-@router.get("/last-7-days")
-def last_7_days(
+@router.get("/chart-data/{email}")
+def chart_data(
+    email: str,
     db: Session = Depends(get_db)
 ):
-    results = db.query(Result).all()
+
+    results = (
+        db.query(Result)
+        .filter(Result.user_email == email)
+        .order_by(Result.created_at.asc())
+        .all()
+    )
 
     return [
         {
-            "date": f"Quiz {i + 1}",
-            "average": result.percentage
+            "quiz": f"Quiz {i + 1}",
+            "score": result.percentage
         }
         for i, result in enumerate(results)
     ]
