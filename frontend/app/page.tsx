@@ -1,64 +1,232 @@
-import Navbar from "../components/Navbar";
+"use client";
 
-export default function Home() {
+import Link from "next/link";
+
+export default function HomePage() {
   return (
-    <main className="min-h-screen bg-black text-white">
+    <main className="min-h-screen bg-black text-white overflow-hidden">
 
-      <Navbar />
+      {/* NAVBAR */}
+      <nav className="mx-6 mt-6 border border-slate-800 rounded-3xl px-8 py-5 flex justify-between items-center backdrop-blur-xl">
+        <h1 className="text-4xl font-bold">
+          <span className="text-blue-500">AI</span> Platform 🚀
+        </h1>
+
+        <div className="flex gap-10 items-center">
+          <Link href="/" className="text-blue-400 font-semibold">
+            Home
+          </Link>
+
+          <Link href="/login">Login</Link>
+
+          <Link
+            href="/signup"
+            className="
+              px-8 py-3
+              rounded-2xl
+              bg-gradient-to-r
+              from-blue-600
+              to-purple-600
+            "
+          >
+            Signup
+          </Link>
+        </div>
+      </nav>
 
       {/* HERO */}
+      <section className="max-w-7xl mx-auto px-10 py-20">
 
-      <section className="px-8 py-24 text-center">
+        <div className="grid lg:grid-cols-2 gap-10 items-center">
 
-        <div className="max-w-5xl mx-auto">
+          {/* LEFT */}
+          <div>
 
-          <h1 className="text-6xl md:text-7xl font-extrabold leading-tight mb-8">
-
-            AI Driven Intelligent
-            <br />
-
-            <span className="text-blue-500">
-              Resource Management Platform
-            </span>
-
-          </h1>
-
-          <p className="text-xl text-gray-400 max-w-3xl mx-auto mb-10">
-
-            Learn smarter, generate AI roadmaps,
-            analyze resumes, practice quizzes,
-            and track your learning journey with AI.
-
-          </p>
-
-          <div className="flex justify-center gap-5">
-
-            <a
-              href="/signup"
+            <div
               className="
-              bg-blue-600
-              px-8
-              py-4
-              rounded-xl
-              font-semibold
-              hover:bg-blue-500
+                inline-block
+                px-5 py-3
+                rounded-full
+                border
+                border-slate-700
+                bg-slate-900/50
+                mb-8
               "
             >
-              Get Started
-            </a>
+              🚀 AI-Powered Learning Companion
+            </div>
 
-            <a
-              href="/login"
+            <h1
               className="
-              border border-gray-700
-              px-8
-              py-4
-              rounded-xl
-              hover:bg-gray-900
+                text-7xl
+                font-extrabold
+                leading-tight
               "
             >
-              Login
-            </a>
+              AI Driven Intelligent
+              <br />
+
+              <span
+                className="
+                  bg-gradient-to-r
+                  from-cyan-400
+                  via-blue-500
+                  to-purple-500
+                  text-transparent
+                  bg-clip-text
+                "
+              >
+                Resource Management
+              </span>
+
+              <br />
+              Platform
+            </h1>
+
+            <p
+              className="
+                text-slate-400
+                text-xl
+                mt-8
+                max-w-2xl
+              "
+            >
+              Learn smarter, generate AI roadmaps,
+              analyze resumes, practice quizzes,
+              and track your learning journey.
+            </p>
+
+            <div className="flex gap-5 mt-10">
+
+              <Link
+                href="/signup"
+                className="
+                  px-10 py-5
+                  rounded-2xl
+                  bg-gradient-to-r
+                  from-blue-600
+                  to-purple-600
+                  text-xl
+                  font-semibold
+                "
+              >
+                Get Started →
+              </Link>
+
+              <Link
+                href="/login"
+                className="
+                  px-10 py-5
+                  rounded-2xl
+                  border
+                  border-slate-700
+                  text-xl
+                "
+              >
+                Login →
+              </Link>
+
+            </div>
+
+          </div>
+
+          {/* RIGHT SIDE AI IMAGE */}
+          <div className="relative flex justify-center">
+
+            {/* Glow */}
+            <div
+              className="
+                absolute
+                w-[500px]
+                h-[500px]
+                rounded-full
+                bg-purple-700/20
+                blur-[120px]
+              "
+            />
+
+            {/* AI Head */}
+            <div
+              className="
+                relative
+                w-[450px]
+                h-[450px]
+                rounded-full
+                border
+                border-cyan-500/30
+                bg-gradient-to-br
+                from-blue-950
+                to-purple-950
+                flex
+                items-center
+                justify-center
+                shadow-[0_0_80px_rgba(59,130,246,0.4)]
+              "
+            >
+              <div className="text-9xl">🧠</div>
+            </div>
+
+            {/* Floating Cards */}
+
+            <div
+              className="
+                absolute
+                top-0
+                left-10
+                bg-slate-900/80
+                border
+                border-cyan-500/30
+                rounded-3xl
+                p-5
+              "
+            >
+              💬 AI Assistant
+            </div>
+
+            <div
+              className="
+                absolute
+                top-10
+                right-0
+                bg-slate-900/80
+                border
+                border-purple-500/30
+                rounded-3xl
+                p-5
+              "
+            >
+              🎓 AI Roadmaps
+            </div>
+
+            <div
+              className="
+                absolute
+                bottom-20
+                left-0
+                bg-slate-900/80
+                border
+                border-green-500/30
+                rounded-3xl
+                p-5
+              "
+            >
+              ✅ Quizzes
+            </div>
+
+            <div
+              className="
+                absolute
+                bottom-20
+                right-0
+                bg-slate-900/80
+                border
+                border-orange-500/30
+                rounded-3xl
+                p-5
+              "
+            >
+              📄 Resume Analyzer
+            </div>
 
           </div>
 
@@ -66,152 +234,56 @@ export default function Home() {
 
       </section>
 
-      {/* FEATURES */}
+      {/* FEATURE CARDS */}
 
-      <section className="px-10 py-20">
-
-        <h2 className="text-4xl font-bold text-center mb-12">
-          AI Powered Features 🚀
-        </h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-
-          <FeatureCard
-            title="AI Assistant"
-            description="Ask AI questions instantly."
-          />
-
-          <FeatureCard
-            title="Quiz Generator"
-            description="Generate subject quizzes using AI."
-          />
-
-          <FeatureCard
-            title="Resume Analyzer"
-            description="Get ATS score and suggestions."
-          />
-
-          <FeatureCard
-            title="Study Resources"
-            description="Curated learning resources."
-          />
-
-          <FeatureCard
-            title="AI Roadmap"
-            description="Generate personalized learning paths."
-          />
-
-          <FeatureCard
-            title="Analytics Dashboard"
-            description="Track performance and growth."
-          />
-
-        </div>
-
-      </section>
-
-      {/* STATS */}
-
-      <section className="px-10 py-20">
+      <section className="max-w-7xl mx-auto px-10 pb-20">
 
         <div className="grid md:grid-cols-4 gap-6">
 
-          <StatCard value="100+" label="Learning Resources" />
+          <div className="bg-slate-900/60 rounded-3xl p-8 border border-purple-500/20">
+            <div className="text-5xl mb-4">🧠</div>
+            <h3 className="text-2xl font-bold">
+              AI Powered
+            </h3>
+            <p className="text-slate-400 mt-3">
+              Smart AI assistance for learning.
+            </p>
+          </div>
 
-          <StatCard value="24/7" label="AI Support" />
+          <div className="bg-slate-900/60 rounded-3xl p-8 border border-blue-500/20">
+            <div className="text-5xl mb-4">📈</div>
+            <h3 className="text-2xl font-bold">
+              Track Progress
+            </h3>
+            <p className="text-slate-400 mt-3">
+              Monitor growth and performance.
+            </p>
+          </div>
 
-          <StatCard value="1000+" label="Quiz Questions" />
+          <div className="bg-slate-900/60 rounded-3xl p-8 border border-green-500/20">
+            <div className="text-5xl mb-4">🎯</div>
+            <h3 className="text-2xl font-bold">
+              Personalized
+            </h3>
+            <p className="text-slate-400 mt-3">
+              Learning tailored for you.
+            </p>
+          </div>
 
-          <StatCard value="AI" label="Career Guidance" />
+          <div className="bg-slate-900/60 rounded-3xl p-8 border border-orange-500/20">
+            <div className="text-5xl mb-4">⚡</div>
+            <h3 className="text-2xl font-bold">
+              Fast & Efficient
+            </h3>
+            <p className="text-slate-400 mt-3">
+              Save time and learn faster.
+            </p>
+          </div>
 
         </div>
 
       </section>
 
-      {/* WHY */}
-
-      <section className="px-10 py-20 text-center">
-
-        <h2 className="text-4xl font-bold mb-8">
-          Why Choose Our Platform?
-        </h2>
-
-        <p className="text-gray-400 max-w-4xl mx-auto text-lg">
-
-          Our platform combines Artificial Intelligence,
-          learning analytics, quiz generation,
-          resume analysis, study resources,
-          and career roadmap planning into a
-          single modern learning ecosystem.
-
-        </p>
-
-      </section>
-
-      {/* FOOTER */}
-
-      <footer className="border-t border-gray-800 py-8 text-center text-gray-500">
-
-        AI Driven Intelligent Resource Management Platform
-      </footer>
-
     </main>
-  );
-}
-
-function FeatureCard({
-  title,
-  description,
-}: {
-  title: string;
-  description: string;
-}) {
-  return (
-    <div
-      className="
-      bg-gray-900
-      border border-gray-800
-      p-8
-      rounded-2xl
-      hover:border-blue-500
-      hover:-translate-y-1
-      transition-all
-      "
-    >
-      <h3 className="text-2xl font-bold mb-3">
-        {title}
-      </h3>
-
-      <p className="text-gray-400">
-        {description}
-      </p>
-    </div>
-  );
-}
-
-function StatCard({
-  value,
-  label,
-}: {
-  value: string;
-  label: string;
-}) {
-  return (
-    <div
-      className="
-      bg-gradient-to-r
-      from-blue-600
-      to-purple-700
-      p-8
-      rounded-2xl
-      text-center
-      "
-    >
-      <h3 className="text-5xl font-bold mb-2">
-        {value}
-      </h3>
-
-      <p>{label}</p>
-    </div>
   );
 }
