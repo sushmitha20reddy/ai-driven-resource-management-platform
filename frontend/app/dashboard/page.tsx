@@ -255,7 +255,7 @@ useEffect(() => {
 
             <h2 className="text-4xl font-bold">{analytics.total_quizzes}</h2>
 
-            <p className="mt-4 text-green-300">🟢 Active Learning</p>
+          
           </div>
 
           <div
@@ -280,7 +280,7 @@ useEffect(() => {
               {analytics.average_percentage.toFixed(0)}%          
             </h2>
 
-            <p className="mt-4 text-green-200">🚀 Improving</p>
+            
           </div>
 
           <div
@@ -305,7 +305,7 @@ useEffect(() => {
               {Number(analytics.best_score).toFixed(0)}%
             </h2>
 
-            <p className="mt-4 text-yellow-300">⭐ Excellent</p>
+           
           </div>
 
           <div
@@ -330,7 +330,7 @@ useEffect(() => {
   {analytics.subjects || 0}
 </h2>
 
-            <p className="mt-4 text-cyan-200">Keep Exploring</p>
+            
           </div>
         </div>
         {/* CHART + ACTIVITY */}
