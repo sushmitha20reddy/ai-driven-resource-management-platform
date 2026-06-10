@@ -10,13 +10,13 @@ export default function LoginPage() {
       {/* Background Glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-black to-purple-950" />
 
-      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/20 blur-[150px]" />
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/10 blur-[220px]" />
 
-      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600/20 blur-[150px]" />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600/10 blur-[220px]" />
 
       <section className="relative z-10 h-screen flex items-center justify-center px-10 overflow-y-auto">
 
-        <div className="grid lg:grid-cols-2 gap-20 items-center w-full max-w-7xl">
+        <div className="grid lg:grid-cols-2 gap-28 items-center w-full max-w-7xl">
 
           {/* LEFT SIDE */}
 
@@ -24,12 +24,7 @@ export default function LoginPage() {
 
             <img
               src="/robot ai.jpeg"
-              className="
-              w-full
-              max-w-md
-              xl:max-w-lg
-              object-contain
-               "
+              className="w-full max-w-md xl:max-w-lg object-contain"
             />
 
           </div>
@@ -55,8 +50,8 @@ export default function LoginPage() {
 
               <div
                 className="
-                  w-24
-                  h-24
+                  w-16
+                  h-16
                   rounded-full
                   bg-gradient-to-r
                   from-blue-500
@@ -66,12 +61,12 @@ export default function LoginPage() {
                   justify-center
                 "
               >
-                <Rocket size={42} />
+                <Rocket size={28} />
               </div>
 
             </div>
 
-            <h1 className="text-4xl font-bold text-center">
+            <h1 className="text-3xl font-bold text-center">
               Welcome Back 🚀
             </h1>
 
@@ -101,8 +96,8 @@ export default function LoginPage() {
                   bg-black/40
                   border border-slate-700
                   rounded-2xl
-                  py-5
-                  pl-14
+                  py-3.5
+                  pl-12
                   text-lg
                   outline-none
                   focus:border-blue-500
@@ -174,7 +169,7 @@ export default function LoginPage() {
             <button
               className="
                 w-full
-                py-5
+                py-3.5
                 rounded-2xl
                 bg-gradient-to-r
                 from-blue-600
