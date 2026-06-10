@@ -23,7 +23,7 @@ export default function LoginPage() {
           <div className="hidden lg:flex justify-center">
 
             <img
-              src="/robot-ai.png"
+              src="/robot ai.jpeg"
               className="
               w-full
               max-w-md
