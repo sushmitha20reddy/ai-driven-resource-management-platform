@@ -1,105 +1,244 @@
 "use client";
 
-import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/navigation";
+import { Mail, Lock, Eye, Rocket } from "lucide-react";
+import Link from "next/link";
 
 export default function LoginPage() {
-
-  const router = useRouter();
-
-  const [email, setEmail] = useState("");
-
-  const [password, setPassword] = useState("");
-
-  const [loading, setLoading] = useState(false);
-
- const handleLogin = async () => {
-  try {
-    setLoading(true);
-
-    const API_URL =
-      "https://ai-platform-backend-5msg.onrender.com";
-
-    const response = await axios.post(
-      `${API_URL}/login`,
-      {
-        email,
-        password,
-      }
-    );
-
-    localStorage.setItem(
-      "token",
-      response.data.access_token
-    );
-
-    console.log("Saving email:", email);
-
-localStorage.setItem(
-  "user_email",
-  email
-);
-
-console.log(
-  "Stored:",
-  localStorage.getItem("user_email")
-);
-
-    alert("Login successful 🚀");
-
-    router.push("/dashboard");
-
-  } catch (error) {
-
-    console.error(error);
-
-    alert("Invalid credentials ❌");
-
-  } finally {
-
-    setLoading(false);
-
-  }
-};
-
   return (
-    <main className="min-h-screen flex items-center justify-center px-6">
-      <div className="w-full max-w-md bg-gray-900 p-8 rounded-2xl border border-gray-800">
+    <main className="min-h-screen bg-black overflow-hidden relative">
 
-        <h1 className="text-4xl font-bold text-white mb-8 text-center">
-          Welcome Back 🚀
-        </h1>
+      {/* Background Glow */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-950 via-black to-purple-950" />
 
-        <div className="space-y-5">
+      <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-blue-600/20 blur-[150px]" />
 
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full bg-black border border-gray-700 rounded-xl px-5 py-4 text-white outline-none"
-          />
+      <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-purple-600/20 blur-[150px]" />
 
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full bg-black border border-gray-700 rounded-xl px-5 py-4 text-white outline-none"
-          />
+      <section className="relative z-10 min-h-screen flex items-center justify-center px-10">
 
-          <button
-            onClick={handleLogin}
-            disabled={loading}
-            className="w-full bg-blue-600 py-4 rounded-xl text-white font-semibold hover:bg-blue-500 transition"
+        <div className="grid lg:grid-cols-2 gap-20 items-center w-full max-w-7xl">
+
+          {/* LEFT SIDE */}
+
+          <div className="hidden lg:flex justify-center">
+
+            <img
+              src="/robot ai.jpeg"
+              alt="AI Robot"
+              className="
+                w-full
+                max-w-xl
+                drop-shadow-[0_0_40px_rgba(59,130,246,0.8)]
+                animate-pulse
+              "
+            />
+
+          </div>
+
+          {/* RIGHT SIDE */}
+
+          <div
+            className="
+              bg-[#081121]/80
+              backdrop-blur-xl
+              border
+              border-purple-500/30
+              rounded-[35px]
+              p-10
+              shadow-[0_0_40px_rgba(139,92,246,0.3)]
+              text-white
+            "
           >
-            {loading ? "Logging in..." : "Login"}
-          </button>
+
+            {/* Icon */}
+
+            <div className="flex justify-center mb-8">
+
+              <div
+                className="
+                  w-24
+                  h-24
+                  rounded-full
+                  bg-gradient-to-r
+                  from-blue-500
+                  to-purple-600
+                  flex
+                  items-center
+                  justify-center
+                "
+              >
+                <Rocket size={42} />
+              </div>
+
+            </div>
+
+            <h1 className="text-5xl font-bold text-center">
+              Welcome Back 🚀
+            </h1>
+
+            <p className="text-center text-gray-400 mt-4 mb-10 text-lg">
+              Sign in to continue your learning journey
+            </p>
+
+            {/* EMAIL */}
+
+            <div className="relative mb-6">
+
+              <Mail
+                className="
+                  absolute
+                  left-5
+                  top-1/2
+                  -translate-y-1/2
+                  text-gray-400
+                "
+              />
+
+              <input
+                type="email"
+                placeholder="Email"
+                className="
+                  w-full
+                  bg-black/40
+                  border border-slate-700
+                  rounded-2xl
+                  py-5
+                  pl-14
+                  text-lg
+                  outline-none
+                  focus:border-blue-500
+                "
+              />
+
+            </div>
+
+            {/* PASSWORD */}
+
+            <div className="relative mb-6">
+
+              <Lock
+                className="
+                  absolute
+                  left-5
+                  top-1/2
+                  -translate-y-1/2
+                  text-gray-400
+                "
+              />
+
+              <input
+                type="password"
+                placeholder="Password"
+                className="
+                  w-full
+                  bg-black/40
+                  border border-slate-700
+                  rounded-2xl
+                  py-5
+                  pl-14
+                  pr-14
+                  text-lg
+                  outline-none
+                  focus:border-blue-500
+                "
+              />
+
+              <Eye
+                className="
+                  absolute
+                  right-5
+                  top-1/2
+                  -translate-y-1/2
+                  text-gray-400
+                "
+              />
+
+            </div>
+
+            {/* REMEMBER */}
+
+            <div className="flex justify-between mb-8 text-sm">
+
+              <label className="flex items-center gap-2">
+                <input type="checkbox" />
+                Remember me
+              </label>
+
+              <button className="text-blue-400">
+                Forgot password?
+              </button>
+
+            </div>
+
+            {/* LOGIN BUTTON */}
+
+            <button
+              className="
+                w-full
+                py-5
+                rounded-2xl
+                bg-gradient-to-r
+                from-blue-600
+                to-purple-600
+                text-xl
+                font-semibold
+                hover:scale-105
+                transition-all
+              "
+            >
+              Login →
+            </button>
+
+            {/* Divider */}
+
+            <div className="flex items-center gap-4 my-8">
+
+              <div className="flex-1 h-px bg-slate-700" />
+
+              <span className="text-gray-400">
+                or continue with
+              </span>
+
+              <div className="flex-1 h-px bg-slate-700" />
+
+            </div>
+
+            {/* SOCIAL LOGIN */}
+
+            <div className="grid grid-cols-3 gap-4">
+
+              <button className="border border-slate-700 rounded-2xl py-4 text-3xl">
+                🌐
+              </button>
+
+              <button className="border border-slate-700 rounded-2xl py-4 text-3xl">
+                🐱
+              </button>
+
+              <button className="border border-slate-700 rounded-2xl py-4 text-3xl">
+                🪟
+              </button>
+
+            </div>
+
+            <p className="text-center mt-8 text-gray-400">
+
+              Don't have an account?{" "}
+
+              <Link
+                href="/signup"
+                className="text-blue-400"
+              >
+                Sign up
+              </Link>
+
+            </p>
+
+          </div>
 
         </div>
 
-      </div>
+      </section>
 
     </main>
   );
