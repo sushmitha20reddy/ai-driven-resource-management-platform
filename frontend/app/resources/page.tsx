@@ -176,8 +176,44 @@ export default function ResourcesPage() {
     );
 
   return (
-    <main className="min-h-screen flex bg-gradient-to-br from-slate-100 via-white to-purple-100">
-      <Sidebar />
+    <main className="min-h-screen flex text-white relative overflow-hidden">
+
+  {/* Background */}
+  <div className="absolute inset-0 bg-[#030712]" />
+
+  <div
+    className="
+      absolute
+      top-0
+      left-0
+      w-[700px]
+      h-[700px]
+      bg-blue-600/20
+      blur-[180px]
+    "
+  />
+
+  <div
+    className="
+      absolute
+      bottom-0
+      right-0
+      w-[700px]
+      h-[700px]
+      bg-purple-600/20
+      blur-[180px]
+    "
+  />
+
+  <div
+    className="
+      absolute
+      inset-0
+      bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.12),transparent_40%),radial-gradient(circle_at_bottom_right,rgba(168,85,247,0.12),transparent_40%)]
+    "
+  />
+
+  <Sidebar />
 
       <section className="flex-1 p-10 overflow-y-auto">
         {/* Hero */}
