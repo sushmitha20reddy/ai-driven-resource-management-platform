@@ -1,12 +1,9 @@
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
 from database.database import get_db
 from models.user import User
-from schemas.user_schema import (
-    UserCreate,
-    UserLogin
-)
+from schemas.user_schema import UserCreate,UserLogin
 from utils.hash import hash_password
 from utils.hash import verify_password
 from utils.jwt import create_access_token
@@ -41,12 +38,11 @@ def signup(
 
 @router.post("/login")
 async def login(
-    data: LoginSchema,
+    data: UserLogin,
     db: Session = Depends(get_db)
 ):
 
     # ADMIN LOGIN
-
     if (
         data.email == "admin@gmail.com"
         and
@@ -58,7 +54,6 @@ async def login(
         }
 
     # NORMAL USER LOGIN
-
     user = (
         db.query(User)
         .filter(User.email == data.email)
@@ -71,7 +66,20 @@ async def login(
             detail="Invalid credentials"
         )
 
+    if not verify_password(
+        data.password,
+        user.password
+    ):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid credentials"
+        )
+
+    access_token = create_access_token(
+        data={"sub": user.email}
+    )
+
     return {
-        "access_token": "user_token",
+        "access_token": access_token,
         "role": "user"
     }
