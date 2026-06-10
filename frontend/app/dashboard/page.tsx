@@ -377,73 +377,7 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        {/* QUICK ACTIONS */}
-        <div
-          className="
-            mt-8
-            bg-[#0f172a]
-            border border-gray-800
-            rounded-2xl
-            p-6
-          "
-        >
-          <h2 className="text-2xl font-bold mb-6">Quick Actions 🚀</h2>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <button
-              onClick={() => router.push("/chat")}
-              className="
-                    bg-blue-600
-                    p-4
-                    rounded-xl
-                    hover:scale-105
-                    transition-all
-                  "
-            >
-              AI Assistant
-            </button>
-
-            <button
-              onClick={() => router.push("/quiz")}
-              className="
-                    bg-green-600
-                    p-4
-                    rounded-xl
-                    hover:scale-105
-                    transition-all
-                  "
-            >
-              Generate Quiz
-            </button>
-
-            <button
-              onClick={() => router.push("/resources")}
-              className="
-                    bg-purple-600
-                    p-4
-                    rounded-xl
-                    hover:scale-105
-                    transition-all
-                  "
-            >
-              Resources
-            </button>
-
-            <button
-              onClick={() => router.push("/roadmap")}
-              className="
-                    bg-orange-600
-                    p-4
-                    rounded-xl
-                    hover:scale-105
-                    transition-all
-                  "
-            >
-              AI Roadmap
-            </button>
-          </div>
-        </div>{" "}
-        {/* closes Quick Actions */}
+        
       </section>
     </main>
   );
