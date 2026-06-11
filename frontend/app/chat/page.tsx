@@ -107,13 +107,28 @@ const startVoiceInput = () => {
       const API_URL =
         "https://ai-platform-backend-5msg.onrender.com";
 
-      const response =
-        await axios.post(
-          `${API_URL}/chat`,
-          {
-            message: transcript,
-          }
-        );
+    const formData = new FormData();
+
+formData.append( "message", transcript );
+
+if (selectedFile) {
+  formData.append(
+    "file",
+    selectedFile
+  );
+}
+
+const response =
+  await axios.post(
+    `${API_URL}/chat`,
+    formData,
+    {
+      headers: {
+        "Content-Type":
+          "multipart/form-data",
+      },
+    }
+  );
 
       setMessages((prev) => [
         ...prev,
@@ -135,7 +150,6 @@ const startVoiceInput = () => {
 
   };
 
-};
 
   const sendMessage = async () => {
     if (message.trim() === "") return;
@@ -155,11 +169,23 @@ const startVoiceInput = () => {
       setLoading(true);
 
       const API_URL = "https://ai-platform-backend-5msg.onrender.com";
+const formData = new FormData();
 
-      const response = await axios.post(`${API_URL}/chat`, {
-        message: currentMessage,
-      });
+formData.append("message", currentMessage);
 
+if (selectedFile) {
+  formData.append("file", selectedFile);
+}
+
+const response = await axios.post(
+  `${API_URL}/chat`,
+  formData,
+  {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  }
+);
       const aiMessage = {
         text: response.data.response,
         sender: "ai",
@@ -452,4 +478,5 @@ const startVoiceInput = () => {
 
 </main>
   );
+}
 }
