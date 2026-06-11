@@ -149,7 +149,7 @@ const response =
     }
 
   };
-
+};
 
   const sendMessage = async () => {
     if (message.trim() === "") return;
@@ -479,4 +479,4 @@ const response = await axios.post(
 </main>
   );
 }
-}
+
