@@ -371,33 +371,7 @@ const response = await axios.post(
       📎
     </button>
 
-    {/* Camera */}
-
-    <input
-      type="file"
-      accept="image/*"
-      capture="environment"
-      id="cameraInput"
-      hidden
-      onChange={handleFileUpload}
-    />
-
-    <button
-      onClick={() =>
-        document
-          .getElementById("cameraInput")
-          ?.click()
-      }
-      className="
-        p-4
-        rounded-2xl
-        bg-slate-800
-        hover:bg-slate-700
-        transition
-      "
-    >
-      📷
-    </button>
+    
 
     {/* Voice */}
 
