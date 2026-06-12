@@ -210,22 +210,24 @@ const response = await axios.post(
   return (
     <main className="min-h-screen flex text-white">
 
+  <div className="hidden md:block">
   <Sidebar />
+</div>
 
-  <section className="flex-1 p-8">
+  <section className="flex-1 p-4 md:p-8">
 
     {/* Header */}
 
     <div className="mb-8">
 
-      <h1 className="text-5xl font-bold"> 🤖 AI Assistant </h1>
+      <h1 className="text-3xl md:text-5xl font-bold"> 🤖 AI Assistant </h1>
 
       <p className="text-slate-400 mt-2">
         Your intelligent learning companion
       </p>
 
 
-<div className="grid md:grid-cols-4 gap-6 mb-8">
+<div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
 
   <div className="bg-slate-900/60 rounded-3xl p-6 border border-purple-500/20">
     <div className="text-5xl mb-4">💻</div>
@@ -264,13 +266,14 @@ const response = await axios.post(
     </div>
 
       {/* Chat Section */}
-      <div
+     <div
   className="
     bg-slate-900/60
     backdrop-blur-xl
     border border-slate-700/40
     rounded-3xl
     overflow-hidden
+    w-full
   "
 >
        
@@ -278,9 +281,9 @@ const response = await axios.post(
         {/* Messages */}
        <div
   className="
-    h-[500px]
+    h-[400px] md:h-[500px]
     overflow-y-auto
-    p-8
+    p-4 md:p-8
     space-y-6
   "
 >
@@ -289,11 +292,11 @@ const response = await axios.post(
 
   <div className="text-center mt-16">
 
-    <div className="text-7xl mb-5">
+    <div className="text-5xl md:text-7xl mb-5">
       🤖
     </div>
 
-    <h2 className="text-3xl font-bold">
+    <h2 className="text-2xl md:text-3xl font-bold">
       Hello 👋
     </h2>
 
@@ -315,7 +318,7 @@ const response = await axios.post(
               }`}
             >
               <div
-                className={`px-5 py-4 rounded-2xl max-w-xl ${
+                className={`px-5 py-4 rounded-2xl max-w-[90%] md:max-w-xl {
                   msg.sender === "user"
                     ? "bg-blue-600 text-white"
                     : "bg-slate-800 text-white border border-slate-700"
@@ -327,7 +330,7 @@ const response = await axios.post(
           ))}
           {loading && (
             <div className="flex justify-start">
-              <div className="bg-gray-800 px-5 py-4 rounded-2xl max-w-xl">
+              <div className="bg-gray-800 px-5 py-4 rounded-2xl max-w-[90%] md:max-w-xl">
                 AI is typing...
               </div>
             </div>
@@ -344,7 +347,7 @@ const response = await axios.post(
     border-slate-700/40
   "
 >
-  <div className="flex gap-3 items-center">
+  <div className="flex flex-wrap md:flex-nowrap gap-3 items-center">
 
     {/* File Upload */}
     <input
@@ -403,7 +406,8 @@ const response = await axios.post(
       }}
       placeholder="Ask anything about AI, Coding, DSA..."
       className="
-        flex-1
+        w-full
+        md:flex-1
         bg-slate-900
         text-white
         px-5
@@ -422,7 +426,7 @@ const response = await axios.post(
       onClick={sendMessage}
       disabled={loading}
       className="
-        px-8
+        px-5 md:px-8
         py-4
         rounded-2xl
         bg-gradient-to-r
