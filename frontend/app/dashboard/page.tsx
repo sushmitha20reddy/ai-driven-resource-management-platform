@@ -21,7 +21,7 @@ export default function DashboardPage() {
 
   const [activities, setActivities] = useState<any[]>([]);
 
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [search, setSearch] = useState("");
 
@@ -87,12 +87,12 @@ export default function DashboardPage() {
   }, []);
 
   return (
-    <main className="h-screen bg-black text-white flex overflow-hidden">
+    <main className="h-screen bg-black text-white flex overflow-y-auto">
       {sidebarOpen && <Sidebar />}
 
-      <section className="flex-1 p-5 overflow-y-auto">
+      <section className="flex-1 p-4 md:p-10">
         {/* TOP BAR */}
-        <div className="flex justify-between items-center mb-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
           <div className="flex items-center gap-4">
             <button
               onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -121,12 +121,12 @@ export default function DashboardPage() {
     border border-gray-800
     rounded-xl
     px-5 py-3
-    w-[500px]
+    w-full md:w-[500px]
     text-white
   "
             />
           </div>
-          <div className="flex items-center gap-5">
+          <div className="flex items-center gap-3 flex-wrap">
             <button
               onClick={() => router.push("/notifications")}
               className="
@@ -202,7 +202,7 @@ export default function DashboardPage() {
           </p>
         </div>
         {/* STATS */}
-        <div className="grid md:grid-cols-4 gap-6 mb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-10">
           <div
             className="
   bg-gradient-to-br
@@ -292,7 +292,7 @@ export default function DashboardPage() {
           </div>
         </div>
         {/* CHART + ACTIVITY */}
-        <div className="grid lg:grid-cols-[2fr_1fr] gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-6">
           <div
             className="
               lg:col-span-2
@@ -322,24 +322,30 @@ export default function DashboardPage() {
             <div className="space-y-4">
               {activities.map((activity, index) => (
                 <div className="space-y-4">
-                  {activities.length === 0 ? (
-                    <p className="text-slate-400">No Activity Yet</p>
-                  ) : (
-                    activities.map((activity, index) => (
-                      <div
-                        key={index}
-                        className="
-            bg-slate-800
-            rounded-xl
-            p-4
-          "
-                      >
-                        <p>✅ {activity.subject}</p>
+                  <div className="space-y-4">
+  {activities.length === 0 ? (
+    <p className="text-slate-400">
+      No Activity Yet
+    </p>
+  ) : (
+    activities.map((activity, index) => (
+      <div
+        key={index}
+        className="
+          bg-slate-800
+          rounded-xl
+          p-4
+        "
+      >
+        <p>✅ {activity.subject}</p>
 
-                        <p className="text-slate-400">{activity.percentage}%</p>
-                      </div>
-                    ))
-                  )}
+        <p className="text-slate-400">
+          {activity.percentage}%
+        </p>
+      </div>
+    ))
+  )}
+</div>
                 </div>
               ))}
             </div>
