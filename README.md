@@ -254,23 +254,7 @@ Updated requirements.txt and fixed imports.
 
 ---
 
-## 📷 Screenshots
 
-Add screenshots of:
-
-* Home Page
-* Login Page
-* Signup Page
-* Dashboard
-* AI Assistant
-* Quiz Generator
-* Resume Analyzer
-* Study Resources
-* AI Roadmap
-* Profile Page
-* Admin Dashboard
-
----
 
 ## 🎓 Academic Importance
 
